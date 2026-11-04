@@ -7,6 +7,13 @@
       "skillPath": "skills/taste-skill/SKILL.md",
       "computedHash": "048a9bff8064f1efa51c2733558428ac93a0d8398e33ad11e7b68500f8e0525f"
     },
+    "emil-design-eng": {
+      "source": "emilkowalski/skills",
+      "sourceType": "github",
+      "skillPath": "skills/emil-design-eng/SKILL.md",
+      "ref": "f1090bec277140d02ed202440185ad9d02ac1490",
+      "computedHash": "2483020b5bbaab030d6b3463bfba49c8d9c2cd8dea4d9fba836dbd471f1fb706"
+    },
     "impeccable": {
       "source": "pbakaus/impeccable",
       "sourceType": "github",

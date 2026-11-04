@@ -1,131 +1,61 @@
-# 🛸 Design System — Dark Tech & Cyberpunk
+# Design system da landing — ATIVOS Tecnologia
 
-Documentação agnóstica de Design System para **Website**, **Instagram** (Feed, Stories, Reels, Carrossel) e **LinkedIn** (Posts, Artigos, Carrosséis e Banners).
+A landing aplica a identidade **Corporate Tech Premium discreta** dos arquivos fornecidos pelo usuário em 03/11/2026:
 
----
+- [Foundations v0.3](../../design/design_system_ativos/foundations.md): identidade, paleta, tipografia e marca.
+- [Web v0.1](../../design/design_system_ativos/web.md): tokens semânticos, componentes, acessibilidade e responsividade.
 
-## 1. Fundamentos Visuais (Tokens Globais)
+Foundations prevalece em conflitos de identidade. Os valores propostos em Web foram adotados para esta implementação; isso não representa homologação geral das pendências do manual. Os documentos de origem ficam em `design/`, conservado localmente e fora do versionamento remoto.
 
-### 1.1. Paleta de Cores
+## Tokens e tipografia
 
-| Nome do Token | Código HEX | RGB | Função no Layout |
-| :--- | :--- | :--- | :--- |
-| **`color-accent-light`** | `#92C1FD` | `rgb(146, 193, 253)` | Destaques primários, palavras-chave, elementos focais |
-| **`color-text-primary`** | `#FFFFFF` | `rgb(255, 255, 255)` | Títulos principais, contraste máximo, CTAs primários |
-| **`color-text-secondary`**| `#8E95A5` | `rgb(142, 149, 165)` | Subtítulos, metadados, handles, textos complementares |
-| **`color-bg-main`** | `#0C0E12` | `rgb(12, 14, 18)` | Fundo principal (Dark Mode absoluto) |
-| **`color-bg-surface`** | `#1A1D24` | `rgb(26, 29, 36)` | Cards, caixas de código, contêineres e elevações |
-| **`color-border`** | `#1E2C3F` | `rgb(30, 44, 63)` | Divisores, bordas de componentes e botões pílula |
-| **`color-glow`** | `#2B5899` | `rgb(43, 88, 153)` | Pontos de luz, névoa ambiente e iluminação focal |
+`app/static/css/tokens.css` é a fonte única dos tokens usados pela landing.
 
-### 1.2. Tipografia
+| Papel | Token | Valor |
+|---|---|---|
+| Canvas | `--brand-background` | Midnight Navy `#101B33` |
+| Ação principal | `--brand-primary` | Deep Cyan `#007FA8` |
+| Apoio e ícones | `--brand-secondary` | Clear Sky `#55A9DD` |
+| Painel claro | `--brand-surface` | Ice Blue `#DDF3FF` |
+| Foco e ênfase pontual | `--brand-accent` | Acid Lime `#C7FF3D` |
+| Superfícies escuras | `--web-surface-1` / `--web-surface-2` | `#192740` / `#22334F` |
+| Texto | `--web-text` / `--web-text-muted` | `#FFFFFF` / `#C0D0E3` |
+| Links sobre Navy | `--web-link` | `#80CCF1` |
+| Borda de superfície | `--web-border` | `#40516B` |
+| Hover / ação pressionada | `--web-action-hover` / `--web-action-active` | `#006A8C` / `#005B78` |
+| Controle desabilitado | `--web-disabled-bg` / `--web-disabled-text` | `#34435A` / `#B0BACA` |
 
-* **Fontes de Display / Títulos:** *Inter*, *Montserrat* ou *Bebas Neue* (Pesos: 800/900, Caixa Alta).
-* **Fontes de Corpo / Código:** *Inter* (Pesos: 400/500/600) ou *JetBrains Mono* / *Fira Code* (para elementos técnicos).
+Títulos usam **Space Grotesk 600**, em caixa natural; corpo, navegação e controles usam **Inter 400–600**. As duas famílias são auto-hospedadas em WOFF2, com subsets Latin e Latin Extended e `font-display: swap`. O lettering do logotipo não foi alterado. A landing não carrega JetBrains Mono.
 
----
+A escala tipográfica usa display fluido, H2 fluido, H3 de 24px, corpo de 16px e texto auxiliar de 14px. Parágrafos de leitura usam medida máxima de 65 caracteres quando o layout permite. Números de etapas usam algarismos tabulares.
 
-## 2. Bloco: Website (Web App & Landing Pages)
+## Layout e componentes
 
-### 2.1. Tokens CSS & Configuração Tailwind
+O container tem limite de **1200px**, com margens de 16px em celulares, 24px a partir de 640px, 32px a partir de 1024px e 40px a partir de 1440px. A separação vertical é de 48px em mobile, 64px em tablet e 96px em desktop. Espaçamentos e raios usam a escala dos manuais.
 
-```javascript
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        dark: {
-          bg: '#0C0E12',
-          surface: '#1A1D24',
-          accent: '#92C1FD',
-          muted: '#8E95A5',
-          border: '#1E2C3F',
-          glow: '#2B5899',
-        }
-      },
-      fontFamily: {
-        heading: ['Inter', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-      }
-    }
-  }
-}
-```
+- **Botão primário:** Deep Cyan com texto branco, raio de 8px e altura mínima de 48px. Exemplo: contato pelo WhatsApp quando configurado. Não usar transparência, glow ou blur.
+- **Botão secundário:** transparente com contorno e texto visíveis. Exemplo: contato no cabeçalho, que leva à seção final.
+- **Desabilitado:** fundo e texto próprios, sem hover de ação. Os contatos sem `WHATSAPP_NUMBER` mantêm `aria-disabled="true"` e não recebem destino fictício.
+- **Foco:** contorno externo Lime de 2px com offset de 4px. No painel Ice Blue, usar Navy para manter contraste do indicador.
+- **Cards:** Navy elevado com borda discreta, raio de 12px e sem sombra. Exemplos: jornada e processo. Não tratar cards informativos como links.
+- **Painel claro:** Ice Blue com texto Navy e raio de 16px. Exemplo: contato final. Não usar Clear Sky como texto sobre Ice Blue.
+- **Menu e controles:** alvos mínimos de 44px, estados de hover e foco, Escape e retorno de foco no menu. O breakpoint de 1020px permanece compartilhado com os módulos JS existentes.
 
-### 2.2. Componentes Web
+O vídeo, as três ilustrações, as âncoras e os destinos configuráveis são mantidos. A seção de depoimentos foi removida a pedido do usuário; o processo é seguido pelo contato final. Um scrim Navy sobre o vídeo protege a leitura; a composição usa mistura de luminosidade para integrar mídias escuras ao canvas, sem editar os arquivos originais. Movimento de entrada dura 220ms e é removido com `prefers-reduced-motion`.
 
-* **Botão Primário (Glassmorphism / Glow):**
-  * Fundo: `transparent` ou `#1A1D24` com `backdrop-filter: blur(8px)`
-  * Borda: `1px solid #1E2C3F` (Hover: `1px solid #92C1FD`)
-  * Texto: `#FFFFFF` (Hover: `#92C1FD`)
-  * Raio de Borda: `999px` (Pílula) ou `8px`
-* **Card de Conteúdo / Código:**
-  * Fundo: `#1A1D24` com opacidade `80%`
-  * Borda: `1px solid #1E2C3F`
-  * Efeito visual: Sombra interna e névoa suave `#2B5899` no fundo do contêiner.
+## Marca disponível
 
----
+Em 03/11/2026, o usuário forneceu a assinatura **Ativos Negócios Locais** em `design/design_system_ativos/logo_negocios_locais.png`, que passa a ser a referência da marca nesta landing. A versão para fundo escuro foi preparada com ImageGen, preservando símbolo, lettering, cores e o descritor. A opção opaca foi escolhida por manter bordas e letras limpas; o original fornecido não foi alterado.
 
-## 3. Bloco: Instagram (Todos os Formatos)
+O cabeçalho e o rodapé usam `app/static/images/brand/ativos-negocios-locais.webp`, exportado em 940 × 274px e aproximadamente 41KB, com largura de apresentação de 240px no desktop, 208px no celular e 224px no rodapé desktop. A mistura de luminosidade integra a base Navy da imagem às superfícies da página. O símbolo isolado foi exportado em PNG de 32px para favicon e de 180px para ícone de toque, sem reduzir a assinatura inteira a um ícone ilegível.
 
-### 3.1. Feed Quadrado (1080 x 1080 px) & Vertical (1080 x 1350 px)
-* **Estrutura de Capa:**
-  * **Header (Fixo):** Logo/Ícone alinhado à esquerda | Categoria em caixa alta à direita (`FONTE MONO` / `#8E95A5`).
-  * **Visual Central:** Imagem conceitual com iluminação `#2B5899` focalizada e contraste alto.
-  * **Tipografia de Impacto:** Título em 2 a 4 linhas intercalando cores:
-    * Linha 1: `#FFFFFF` (Texto Primário)
-    * Linha 2: `#92C1FD` (Destaque Ciano)
-  * **Footer (Fixo):** Botão pílula `ARRASTE →` (`#FFFFFF` + borda `#1E2C3F`).
+O original adaptado fica em `design/originals/brand/ativos-negocios-locais-imagen.png`, e a exportação intermediária em `design/originals/brand/ativos-negocios-locais-web.png`; as exportações publicadas têm recorte e redução de tamanho para web. A assinatura anterior e `reference-mark.svg` continuam preservados como arquivos, sem uso na página. Os SVGs planos citados no manual não foram fornecidos e não foram simulados a partir do raster.
 
-### 3.2. Carrossel (1080 x 1350 px)
-* **Slide 1 (Capa):** Padrão de foco total no hook visual e título curto de alto impacto.
-* **Slides Internos (Conteúdo):**
-  * Fundo: `#0C0E12` contínuo.
-  * Caixas de texto/código: `#1A1D24` com bordas `#1E2C3F`.
-  * Numeração do slide/Progresso: Canto superior direito em `#8E95A5`.
-* **Slide Final (CTA):**
-  * Chamada clara para ação (Comentar, Salvar, Compartilhar) utilizando caixa em destaque `#1A1D24` com borda e texto `#92C1FD`.
+## Verificação
 
-### 3.3. Stories (1080 x 1920 px)
-* **Zonas de Segurança:** Manter conteúdos principais a 250px do topo e do rodapé.
-* **Fundo:** Textura `#0C0E12` com gradiente radial `#2B5899` centralizado.
-* **Caixas de Enquete/Caixa de Pergunta:** Utilizar estilo Glassmorphism escuro (`#1A1D24` semitransparente) com texto em `#FFFFFF`.
+- Integração HTTP: `python -m unittest discover -s tests/integration -v`.
+- Navegador em 1440, 768, 390 e 320px: `node tests/browser/landing.mjs`.
+- Inspeção visual em 1440, 768 e 390px com o inspetor local da skill `design-taste-frontend`.
+- Evidências da migração em `reports/qa/design-system-before/`, `reports/qa/design-system-after/` e `reports/qa/design-system-browser/` (arquivos locais, não versionados).
 
-### 3.4. Reels / Vídeo (1080 x 1920 px)
-* **Legendas Dinâmicas:**
-  * Fonte: *Inter Bold* / Caixa Alta
-  * Cor de fundo das palavras ativas: Destaque `#92C1FD` com texto escuro `#0C0E12` ou texto `#FFFFFF` com brilho ciano.
-* **Capa de Reels:** Seguir exatamente a mesma regra do Feed Vertical (1080x1350 px) com o assunto centralizado.
-
----
-
-## 4. Bloco: LinkedIn
-
-### 4.1. Carrossel em PDF (1080 x 1350 px / 1920 x 1080 px)
-* **Estilo Técnico/Profissional:**
-  * Uso prioritário de diagramações limpas com blocos de código (`#1A1D24`), listas e tópicos bem espaçados.
-  * Rodapé técnico com indicação de página (`Pág. 01 / 05`) e barra de progresso fina em `#92C1FD` na borda inferior.
-
-### 4.2. Imagem Única para Posts (1200 x 627 px ou 1080 x 1350 px)
-* **Proporção da Imagem:** Formato retangular landscape (1200x627) para artigos/links ou 1080x1350 para imagens de destaque.
-* **Composição:** Imagem de fundo dark com overlay `#0C0E12` (80%), título principal curto em `#FFFFFF` e palavra de destaque em `#92C1FD`.
-
-### 4.3. Banner de Perfil / Company Page (1584 x 396 px)
-* **Fundo:** `#0C0E12` com névoa fluida/abstrata em `#2B5899`.
-* **Lado Esquerdo:** Limpo (reservado para a foto de perfil).
-* **Lado Direito:** Proposição de valor curta (1 linha) em `#FFFFFF` e palavra de impacto em `#92C1FD` + ícones da stack/tecnologias em tom `#8E95A5`.
-
----
-
-## 5. Diretrizes do Sistema (Do's & Don'ts)
-
-### ✅ Fazer (Do's)
-* Manter a regra de contraste: sempre intercalar textos brancos com destaques em azul ciano (`#92C1FD`).
-* Utilizar bordas finas (`1px`) para separar contêineres e manter o aspecto técnico/limpo.
-* Aplicar o ponto de iluminação focal (`#2B5899`) sempre atrás do objeto/elemento principal da arte.
-
-### ❌ Não Fazer (Don'ts)
-* Nunca utilizar fundos claros, brancos ou cinzas luminosos em nenhum canal.
-* Não misturar cores quentes (vermelho, amarelo, laranja) como cor principal; reservar cores quentes exclusivamente para alertas de erro de código.
-* Evitar sobrecarregar a tela com múltiplos pontos de iluminação intensa (manter 1 ponto de brilho por peça).
+As regras de negócio, o conteúdo comercial e a configuração de contatos continuam sendo definidos pela aplicação. Esta migração não cria provas sociais, resultados, números ou condições comerciais.

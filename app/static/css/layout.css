@@ -1,25 +1,9 @@
-/* Ativos landing: layout. */
-
 .container {
-  width: min(var(--page-width),calc(100% - var(--page-margin)*2));
+  width: min(var(--web-container-max), calc(100% - var(--page-margin) * 2));
   margin-inline: auto;
 }
-
 .narrow {
-  width: min(896px,calc(100% - var(--page-margin)*2));
+  width: min(896px, calc(100% - var(--page-margin) * 2));
   margin-inline: auto;
 }
-
-.section-rule {
-  width: min(896px,calc(100% - var(--page-margin)*2));
-  height: 1px;
-  margin-inline: auto;
-}
-
-.centered {
-  text-align: center;
-}
-
-.section-rule {
-  background: var(--color-border);
-}
+.centered { text-align: center; }

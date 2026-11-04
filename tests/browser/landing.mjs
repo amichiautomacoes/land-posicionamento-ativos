@@ -29,9 +29,13 @@ try {
         mainHeadings: document.querySelectorAll('h1').length,
         brokenImages: [...document.images].filter(image => !image.complete || !image.naturalWidth).map(image => image.src),
         brokenAnchors: [...document.querySelectorAll('a[href^="#"]')].map(link => link.hash).filter(hash => !document.getElementById(hash.slice(1))),
-        fontLoaded: document.fonts.check('800 24px Inter'),
+        fontLoaded: document.fonts.check('400 16px Inter') && document.fonts.check('600 32px "Space Grotesk"'),
+        headingFont: getComputedStyle(document.querySelector('h1')).fontFamily,
+        headingWeight: getComputedStyle(document.querySelector('h1')).fontWeight,
         background: getComputedStyle(document.body).backgroundColor,
-        accent: getComputedStyle(document.documentElement).getPropertyValue('--color-accent-light').trim(),
+        primary: getComputedStyle(document.documentElement).getPropertyValue('--brand-primary').trim(),
+        accent: getComputedStyle(document.documentElement).getPropertyValue('--brand-accent').trim(),
+        focus: getComputedStyle(document.documentElement).getPropertyValue('--web-focus').trim(),
         videoSource: document.querySelector('.hero-video').currentSrc,
       }));
       assert.equal(metrics.overflow, 0, width + 'px horizontal overflow');
@@ -39,8 +43,11 @@ try {
       assert.deepEqual(metrics.brokenImages, []);
       assert.deepEqual(metrics.brokenAnchors, []);
       assert.equal(metrics.fontLoaded, true);
-      assert.equal(metrics.background, 'rgb(12, 14, 18)');
-      assert.equal(metrics.accent, '#92c1fd');
+      assert.equal(metrics.background, 'rgb(16, 27, 51)');
+      assert.ok(metrics.headingFont.startsWith('"Space Grotesk"'));
+      assert.equal(metrics.headingWeight, '600');
+      assert.equal(metrics.primary, '#007fa8');
+      assert.equal(metrics.accent, '#c7ff3d');
       assert.ok(metrics.videoSource.includes(width <= 1020 ? '/mobile.mp4' : '/desktop.mp4'));
       await page.screenshot({ path: resolve(output, width + '-fold.jpg'), quality: 88 });
 
@@ -60,11 +67,7 @@ try {
 
       await page.eval(() => document.querySelector('.hero-actions .text-link').click());
       assert.equal(await page.eval(() => location.hash), '#capabilities');
-      const initialQuote = await page.eval(() => document.querySelector('#customer-quote').textContent);
-      await page.eval(() => document.querySelector('.carousel-next').click());
-      assert.notEqual(await page.eval(() => document.querySelector('#customer-quote').textContent), initialQuote);
-      await page.eval(() => document.querySelector('.carousel-previous').click());
-      assert.equal(await page.eval(() => document.querySelector('#customer-quote').textContent), initialQuote);
+      assert.equal(await page.eval(() => document.querySelector('#customers')), null);
       await page.eval(() => document.querySelector('.hero-video-toggle').click());
       await sleep(150);
       assert.equal(await page.eval(() => document.querySelector('.hero-video').paused), true);
@@ -73,7 +76,7 @@ try {
       assert.equal(await page.eval(() => document.querySelector('.hero-video').paused), false);
       assert.deepEqual(page.consoleErrors, []);
       result.viewports.push(metrics);
-      result.interactions.push(width + 'px: section link, testimonial, video controls and console');
+      result.interactions.push(width + 'px: section link, removed testimonial, video controls and console');
     } finally {
       await page.close();
     }
@@ -101,12 +104,12 @@ try {
     result.noJavaScript = await noJavaScript.eval(() => ({
       navigationVisible: getComputedStyle(document.querySelector('.navigation-content')).display !== 'none',
       titleVisible: getComputedStyle(document.querySelector('h1')).opacity === '1',
-      quoteVisible: document.querySelector('#customer-quote').textContent.length > 100,
+      contactVisible: document.querySelector('#diagnostico').textContent.includes('Fale com a Ativos'),
       overflow: document.documentElement.scrollWidth - innerWidth,
     }));
     assert.equal(result.noJavaScript.navigationVisible, true);
     assert.equal(result.noJavaScript.titleVisible, true);
-    assert.equal(result.noJavaScript.quoteVisible, true);
+    assert.equal(result.noJavaScript.contactVisible, true);
     assert.equal(result.noJavaScript.overflow, 0);
   } finally {
     await noJavaScript.close();

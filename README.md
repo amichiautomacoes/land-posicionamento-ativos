@@ -85,7 +85,7 @@ O deploy é manual pelo painel. Consulte [App Service — documentação do Easy
 | Originais e referências | `design/` |
 | Especificação visual | [Design system](docs/brand/design-system.md) |
 
-Os templates mantêm as âncoras existentes. Menu, vídeo, depoimento e entrada das seções têm inicializadores independentes. Os estilos carregam nesta ordem: tokens, base, layout, componentes e página.
+Os templates mantêm as âncoras existentes. Menu, vídeo e entrada das seções têm inicializadores independentes. A seção de depoimentos foi removida a pedido do usuário. Os estilos carregam nesta ordem: tokens, base, layout, componentes e página.
 
 ## Verificar as alterações
 
@@ -97,7 +97,7 @@ Testes HTTP, arquivos públicos e vídeo com requisições parciais:
 
 As verificações de navegador e o inspetor são ferramentas locais opcionais: dependem da skill `design-taste-frontend` instalada em `.agents/skills/`. O conteúdo das skills não é versionado; `skills-lock.json` registra suas origens. Os testes HTTP e o Docker funcionam sem essas ferramentas.
 
-Com o servidor ativo e a skill instalada, teste de menu, links internos, vídeo, depoimento, movimento reduzido e conteúdo sem JavaScript:
+Com o servidor ativo e a skill instalada, teste de menu, links internos, vídeo, ausência do depoimento, movimento reduzido e conteúdo sem JavaScript:
 
 ~~~powershell
 node tests/browser/landing.mjs
