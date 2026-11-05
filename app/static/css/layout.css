@@ -1,0 +1,9 @@
+.container {
+  width: min(var(--web-container-max), calc(100% - var(--page-margin) * 2));
+  margin-inline: auto;
+}
+.narrow {
+  width: min(896px, calc(100% - var(--page-margin) * 2));
+  margin-inline: auto;
+}
+.centered { text-align: center; }

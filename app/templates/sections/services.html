@@ -1,0 +1,78 @@
+    <section class="platform container section-transition-host" id="platform" aria-labelledby="platform-title" tabindex="-1">
+      {% include 'components/section-transition.html' %}
+      <h2 class="section-heading centered" id="platform-title" lang="pt-BR" data-reveal data-section-opening>Mais visibilidade. Mais contatos. Mais oportunidades.</h2>
+      <p class="platform-subtitle centered" lang="pt-BR" data-reveal>Três soluções para conectar sua empresa aos clientes, do Google ao WhatsApp.</p>
+
+      <div class="process-rail" data-process-rail>
+        <div class="process-rail-visual" data-rail-visual hidden>
+          <span class="process-rail-watermark" aria-hidden="true">Soluções</span>
+          <div class="process-rail-window" data-rail-window></div>
+        </div>
+
+        <div class="process-rail-path" data-rail-path aria-hidden="true" hidden>
+          <div class="process-rail-progress" data-rail-progress></div>
+          <svg class="process-rail-marker" viewBox="0 0 40 40" width="40" height="40" focusable="false">
+            <path d="M20 0C22 13 27 18 40 20C27 22 22 27 20 40C18 27 13 22 0 20C13 18 18 13 20 0Z" fill="currentColor"/>
+          </svg>
+        </div>
+
+        <div class="process-rail-steps">
+          <article class="process-rail-step" id="centralize" lang="pt-BR" aria-labelledby="service-google-title" data-rail-step>
+            <div class="process-rail-copy">
+              <h3 id="service-google-title"><span class="process-rail-number" aria-hidden="true">01. </span>Seja encontrado no Google.</h3> {# taste-skill-ignore: numbered stages explicitly requested from the reference #}
+              <p class="feature-service">Presença no Google</p>
+              <ul class="process-rail-list">
+                <li><strong>Google e Maps:</strong> coloque sua empresa no caminho de quem procura seus serviços na região.</li>
+                <li><strong>Site profissional:</strong> apresente seu negócio com credibilidade e desperte o interesse de novos clientes.</li>
+                <li><strong>Melhor posicionamento:</strong> aumente suas chances de aparecer entre os primeiros resultados do Google.</li>
+              </ul>
+            </div>
+            <figure class="process-rail-image" data-rail-image>
+              <img src="{{ static_url('images/services/google-presence-imagen-square-768.webp') }}"
+                   srcset="{{ static_url('images/services/google-presence-imagen-square-384.webp') }} 384w, {{ static_url('images/services/google-presence-imagen-square-768.webp') }} 768w, {{ static_url('images/services/google-presence-imagen-square-1254.webp') }} 1254w"
+                   sizes="auto, (max-width: 639px) calc(100vw - 32px), (max-width: 1263px) 50vw, 568px"
+                   data-rail-sizes="(min-width: 1440px) 648px, 45vw"
+                   alt="Ilustração de uma loja com o símbolo do Google, busca e localização no mapa." width="1254" height="1254" loading="lazy" decoding="async">
+            </figure>
+          </article>
+
+          <article class="process-rail-step" id="discover" lang="pt-BR" aria-labelledby="service-marketing-title" data-rail-step>
+            <div class="process-rail-copy">
+              <h3 id="service-marketing-title"><span class="process-rail-number" aria-hidden="true">02. </span>Atraia mais clientes nas redes sociais</h3> {# taste-skill-ignore: numbered stages explicitly requested from the reference #}
+              <p class="feature-service">Marketing Digital</p>
+              <ul class="process-rail-list">
+                <li><strong>Anúncios estratégicos:</strong> campanhas no Google, Instagram e Facebook.</li>
+                <li><strong>Criativos profissionais:</strong> imagens e textos que despertam interesse e incentivam o clique.</li>
+                <li><strong>Público certo:</strong> alcance pessoas com maior potencial de se tornarem clientes.</li>
+              </ul>
+            </div>
+            <figure class="process-rail-image" data-rail-image>
+              <img src="{{ static_url('images/services/digital-marketing-imagen-square-768.webp') }}"
+                   srcset="{{ static_url('images/services/digital-marketing-imagen-square-384.webp') }} 384w, {{ static_url('images/services/digital-marketing-imagen-square-768.webp') }} 768w, {{ static_url('images/services/digital-marketing-imagen-square-1254.webp') }} 1254w"
+                   sizes="auto, (max-width: 639px) calc(100vw - 32px), (max-width: 1263px) 50vw, 568px"
+                   data-rail-sizes="(min-width: 1440px) 648px, 45vw"
+                   alt="Ilustração de um megafone e uma peça de anúncio com os símbolos do Instagram e Facebook." width="1254" height="1254" loading="lazy" decoding="async">
+            </figure>
+          </article>
+
+          <article class="process-rail-step" id="act" lang="pt-BR" aria-labelledby="service-automation-title" data-rail-step>
+            <div class="process-rail-copy">
+              <h3 id="service-automation-title"><span class="process-rail-number" aria-hidden="true">03. </span>Transforme contatos em oportunidades.</h3> {# taste-skill-ignore: numbered stages explicitly requested from the reference #}
+              <p class="feature-service">Automação Comercial com IA</p>
+              <ul class="process-rail-list">
+                <li><strong>WhatsApp inteligente:</strong> atendimento automático e ágil, mesmo fora do horário comercial.</li>
+                <li><strong>Retornos e agendamentos:</strong> acompanhe interessados e facilite marcações.</li>
+                <li><strong>CRM integrado:</strong> organize seus contatos e acompanhe cada oportunidade de venda.</li>
+              </ul>
+            </div>
+            <figure class="process-rail-image" data-rail-image>
+              <img src="{{ static_url('images/services/sales-automation-imagen-square-768.webp') }}"
+                   srcset="{{ static_url('images/services/sales-automation-imagen-square-384.webp') }} 384w, {{ static_url('images/services/sales-automation-imagen-square-768.webp') }} 768w, {{ static_url('images/services/sales-automation-imagen-square-1254.webp') }} 1254w"
+                   sizes="auto, (max-width: 639px) calc(100vw - 32px), (max-width: 1263px) 50vw, 568px"
+                   data-rail-sizes="(min-width: 1440px) 648px, 45vw"
+                   alt="Ilustração de um celular com WhatsApp conectado a contatos organizados e um agendamento confirmado." width="1254" height="1254" loading="lazy" decoding="async">
+            </figure>
+          </article>
+        </div>
+      </div>
+    </section>

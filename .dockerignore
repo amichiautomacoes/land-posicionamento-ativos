@@ -1,0 +1,17 @@
+# Send only the application and its production dependencies to the build.
+**
+!Dockerfile
+!requirements/
+!requirements/base.txt
+!requirements/production.txt
+!app/
+!app/**
+
+# Keep generated files and local configuration out of the image.
+**/__pycache__/
+**/*.py[cod]
+**/.env
+**/.env.*
+**/*.log
+**/.DS_Store
+**/Thumbs.db

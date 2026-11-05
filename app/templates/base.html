@@ -1,0 +1,39 @@
+{% from 'components/contact-button.html' import contact_button with context %}
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101b33">
+  <meta name="description" content="Presença no Google, anúncios e automação do atendimento. Conheça as soluções da Ativos Tecnologia para atrair novos contatos e organizar seu processo comercial.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Ativos Tecnologia | Google, marketing e automação</title>
+  <link rel="icon" href="{{ static_url('images/brand/ativos-negocios-locais-metalico-favicon-32.png') }}" type="image/png" sizes="32x32">
+  <link rel="icon" href="{{ static_url('images/brand/ativos-negocios-locais-metalico-favicon-16.png') }}" type="image/png" sizes="16x16">
+  <link rel="apple-touch-icon" href="{{ static_url('images/brand/ativos-negocios-locais-metalico-touch-180.png') }}" sizes="180x180">
+  <link rel="preload" href="{{ static_url('fonts/space-grotesk/space-grotesk-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="{{ static_url('fonts/inter/inter-latin.woff2') }}" as="font" type="font/woff2" crossorigin>
+
+
+  {% for stylesheet in [
+    'tokens.css', 'base.css', 'layout.css', 'components.css',
+    'components/card-stack.css', 'components/process-rail.css',
+    'components/horizontal-journey.css', 'components/expanding-flow.css',
+    'components/faq.css', 'pages/home.css'
+  ] %}
+  <link rel="stylesheet" href="{{ static_url('css/' ~ stylesheet) }}">
+  {% endfor %}
+  <script type="module" src="{{ static_url('js/main.js') }}"></script>
+</head>
+<body data-design-system="ativos">
+  <a class="skip-link" href="#main">Pular para o conteúdo</a>
+
+  {% include 'partials/header.html' %}
+
+  <main id="main" tabindex="-1">
+    {% block main %}{% endblock %}
+  </main>
+
+  {% include 'partials/footer.html' %}
+</body>
+</html>

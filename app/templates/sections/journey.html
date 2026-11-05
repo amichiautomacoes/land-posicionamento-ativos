@@ -1,0 +1,56 @@
+    <section class="capabilities container section-transition-host" id="capabilities" aria-labelledby="capabilities-title" lang="pt-BR" tabindex="-1">
+      {% include 'components/section-transition.html' %}
+      <div class="capabilities-intro centered" data-reveal data-section-opening>
+        <h2 class="section-heading" id="capabilities-title">Da primeira busca ao primeiro contato. Tudo conectado.</h2>
+        <p>Seu cliente encontra sua empresa, conhece seus serviços e chega ao WhatsApp com um atendimento ágil e organizado.</p>
+      </div>
+      <div class="customer-journey" data-customer-journey data-motion="paused" data-active-step="0">
+        <div class="journey-scroll" id="customer-journey-scroll" role="region" aria-label="Jornada do cliente, da descoberta ao atendimento" tabindex="0" data-journey-scroll>
+          <ol class="journey-flow" role="list">
+            {% set journey = [
+              ('discovery', 'Descoberta', 'Google e redes sociais', 'Sua empresa aparece para pessoas que procuram seus serviços.'),
+              ('contact', 'Atendimento', 'WhatsApp com IA', 'O interessado entra em contato e recebe um atendimento ágil.'),
+              ('organization', 'Acompanhamento', 'CRM integrado', 'Cada oportunidade fica organizada para sua equipe dar o próximo passo.')
+            ] %}
+            {% for channel, title, destination, description in journey %}
+            <li class="journey-step journey-step--{{ channel }}" data-journey-step{% if loop.first %} data-journey-active aria-current="step"{% endif %}>
+              <div class="journey-node" data-reveal>
+                <svg class="journey-icon" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
+                  {% if channel == 'discovery' %}
+                  <circle cx="13.5" cy="13.5" r="8.5"/><path d="m20 20 7 7M13.5 9v9M9 13.5h9"/>
+                  {% elif channel == 'contact' %}
+                  <path d="M27 15a11 11 0 0 1-16 9.8L5 27l2.2-6A11 11 0 1 1 27 15Z"/><path d="M11 12h10M11 17h7"/>
+                  {% else %}
+                  <rect x="4" y="5" width="24" height="23" rx="3"/><path d="M4 12h24M11 12v16M16 17h7M16 22h5"/>
+                  {% endif %}
+                </svg>
+                <div class="journey-node-label">
+                  <h3>{{ title }}</h3>
+                  <p class="journey-channel">{{ destination }}</p>
+                </div>
+              </div>
+              <p class="journey-description" data-reveal>{{ description }}</p>
+              {% if not loop.last %}
+              <span class="journey-connection" aria-hidden="true"><span class="journey-packet"></span></span>
+              {% endif %}
+            </li>
+            {% endfor %}
+          </ol>
+        </div>
+        <div class="journey-actions">
+          <div class="journey-navigation" role="group" aria-label="Navegar pela jornada" data-journey-navigation hidden>
+            <button class="button button-outline journey-nav-button" type="button" aria-label="Etapa anterior" aria-controls="customer-journey-scroll" data-journey-previous>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m14 6-6 6 6 6"/></svg>
+            </button>
+            <span class="journey-position" data-journey-position aria-live="polite" aria-atomic="true">Etapa 1 de 3</span>
+            <button class="button button-outline journey-nav-button" type="button" aria-label="Próxima etapa" aria-controls="customer-journey-scroll" data-journey-next>
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m10 6 6 6-6 6"/></svg>
+            </button>
+          </div>
+          <button class="button button-outline journey-motion-toggle" type="button" aria-label="Pausar movimento" title="Pausar movimento" data-journey-motion-toggle hidden>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true" data-journey-pause-icon><path d="M9 6v12M15 6v12"/></svg>
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true" data-journey-play-icon hidden><path d="m8 5 11 7-11 7Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </section>

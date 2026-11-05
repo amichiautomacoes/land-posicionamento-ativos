@@ -1,0 +1,24 @@
+    <section class="hero hero--video" aria-labelledby="hero-title" lang="pt-BR">
+      <picture class="hero-poster" aria-hidden="true">
+        <source media="(max-width: 1020px)" srcset="{{ static_url('images/hero/mobile-poster.jpg') }}" width="1080" height="1920">
+        <img src="{{ static_url('images/hero/desktop-poster.jpg') }}" alt="" width="1920" height="1080" fetchpriority="high" decoding="async">
+      </picture>
+      <video class="hero-video" id="hero-video" muted loop playsinline preload="none" data-desktop-poster="{{ static_url('images/hero/desktop-poster.jpg') }}" data-mobile-poster="{{ static_url('images/hero/mobile-poster.jpg') }}" aria-hidden="true" tabindex="-1">
+        <source src="{{ static_url('videos/hero/mobile.mp4') }}" type="video/mp4" media="(max-width: 1020px)">
+        <source src="{{ static_url('videos/hero/desktop.mp4') }}" type="video/mp4">
+      </video>
+      <div class="hero-content">
+        <div class="hero-copy">
+          <h1 id="hero-title">Seu concorrente pode estar conquistando os clientes que não encontram sua empresa</h1>
+          <p class="hero-subtitle"><strong>Coloque sua empresa no topo do Google, seja visto nas redes sociais e agilize o atendimento no WhatsApp para atrair clientes e aproveitar cada oportunidade.</strong></p>
+          <div class="hero-actions">
+            {{ contact_button('button hero-whatsapp', 'Quero atrair mais clientes') }}
+            <a class="text-link" href="#capabilities">Veja como funciona <span aria-hidden="true">↓</span></a>
+          </div>
+        </div>
+      </div>
+      <button class="hero-video-toggle" type="button" aria-controls="hero-video" hidden>
+        <svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M6 4v12M14 4v12" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"></path></svg>
+        <span>Pausar vídeo</span>
+      </button>
+    </section>

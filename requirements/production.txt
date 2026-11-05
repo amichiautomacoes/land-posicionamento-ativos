@@ -1,0 +1,3 @@
+# Application runtime and WSGI server; used by Docker.
+-r base.txt
+waitress==3.0.2
