@@ -1,4 +1,4 @@
-/* A single left-to-right journey, inspired by AgentFlow's connected nodes. */
+/* Connected nodes: left to right on larger screens, top to bottom on phones. */
 .customer-journey {
   --journey-gap: var(--space-16);
   --journey-node-height: 8rem;
@@ -103,5 +103,27 @@ html[data-input="keyboard"] .journey-node::before { transition: none; }
 
 @media (max-width: 639px) {
   .customer-journey { --journey-gap: var(--space-10); padding: var(--space-6) var(--space-4); }
+  .journey-scroll { overflow: visible; scroll-snap-type: none; }
+  .journey-flow { grid-template-columns: minmax(0, 1fr); }
+  .journey-step { scroll-snap-align: none; }
+  .journey-connection {
+    left: 50%; top: 100%; width: 2px; height: var(--journey-gap);
+    transform: translateX(-50%);
+  }
+  .journey-connection::after {
+    left: -3px; right: auto; top: auto; bottom: 2px;
+    transform: rotate(135deg);
+  }
+  .journey-connection .journey-packet {
+    left: calc((2px - var(--journey-packet-size)) / 2); top: 0;
+    animation-name: journey-packet-travel-vertical;
+  }
   .journey-actions { justify-content: flex-start; }
+
+  @keyframes journey-packet-travel-vertical {
+    0% { transform: translateY(0); opacity: 0; }
+    6% { opacity: 1; }
+    29% { opacity: 1; }
+    33.333333%, 100% { transform: translateY(calc(var(--journey-gap) - var(--journey-packet-size))); opacity: 0; }
+  }
 }

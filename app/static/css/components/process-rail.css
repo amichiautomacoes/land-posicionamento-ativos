@@ -109,11 +109,11 @@
   .process-rail[data-rail-ready] .process-rail-steps { grid-column: 2; }
   .process-rail[data-rail-ready] .process-rail-step { padding-block: var(--space-6); }
   .platform .process-rail[data-rail-ready] .process-rail-step:first-child { padding-block-start: var(--space-4); }
-  .process-rail-watermark {
-    display: block; position: absolute; left: 50%; top: 50%;
-    transform: translate(-50%, -50%) rotate(-90deg);
-    color: var(--web-surface-2); font: 600 20vw/1 var(--font-display); letter-spacing: var(--tracking-display);
-    pointer-events: none; user-select: none;
+  /* The mobile illustration sits on an axis instead of the vertical wordmark. */
+  .process-rail[data-rail-ready] .process-rail-visual::before {
+    content: ''; position: absolute; inset-block: 0; left: 50%; width: 2px;
+    transform: translateX(-50%); background: var(--web-border);
+    pointer-events: none;
   }
 }
 
