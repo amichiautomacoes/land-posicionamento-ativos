@@ -2,6 +2,8 @@
 
 Landing implementada em Flask, templates Jinja, CSS e módulos JavaScript nativos. A aplicação publica os arquivos de `app/static/`. Originais, referências, documentação e relatórios têm diretórios próprios.
 
+A página apresenta a proposta da **Ativos Negócios Locais**: presença no Google, marketing nas redes sociais e automação comercial com IA para atrair contatos e acompanhar oportunidades. O visual atual usa a assinatura metálica, vídeos próprios para desktop e celular, pilha de canais, trilho de soluções e benefícios com prévias de imagens. A jornada conecta descoberta, atendimento e acompanhamento; o FAQ reúne seis perguntas, inicialmente fechadas, antes do contato final.
+
 ## Iniciar no Windows
 
 Na raiz do projeto:
@@ -102,6 +104,50 @@ Com o servidor ativo e a skill instalada, teste de menu, links internos, vídeo,
 ~~~powershell
 node tests/browser/landing.mjs
 ~~~
+
+Estados de hover/press, navegação por teclado, foco ao mudar de breakpoint, semântica de controles e pausa do vídeo fora da tela:
+
+~~~powershell
+node tests/browser/interactions.mjs
+~~~
+
+Pilha de cards da segunda seção: hover, clique, toque, teclado, recolhimento e movimento reduzido:
+
+~~~powershell
+node tests/browser/card-stack.mjs
+~~~
+
+Texto ampliado a 200%: leitura dos benefícios e da pilha de cards, contenção da página e retorno às interações ao restaurar o tamanho da fonte:
+
+~~~powershell
+node tests/browser/typography-reflow.mjs
+~~~
+
+Jornada horizontal: três etapas conectadas, navegação por setas e teclado, pausa do movimento e rolagem nativa no celular, inclusive sem JavaScript:
+
+~~~powershell
+node tests/browser/horizontal-journey.mjs
+~~~
+
+Expanding Flow com os quatro benefícios da nova seção: expansão de todos os cards, navegação por teclado, independência da jornada original e leitura responsiva:
+
+~~~powershell
+node tests/browser/benefits-flow.mjs
+~~~
+
+Trilho de soluções: imagem fixa, rotação da moldura, troca de imagem por scroll, retorno ao rolar para cima, links diretos, responsividade e leitura estática sem JavaScript ou com movimento reduzido:
+
+~~~powershell
+node tests/browser/process-rail.mjs
+~~~
+
+FAQ: abertura exclusiva, interrupção de transições, teclado, foco, texto ampliado, movimento reduzido e leitura sem JavaScript:
+
+~~~powershell
+node tests/browser/faq.mjs
+~~~
+
+O FAQ apresenta seis cards expansivos, com três perguntas em cada coluna no desktop. Com JavaScript, todas as perguntas começam fechadas e apenas uma resposta pode ficar aberta por vez. As perguntas e respostas fornecidas pelo usuário estão em `faq_07.txt` e em `app/templates/sections/before-start.html`. O teste de navegador compara integralmente o conteúdo publicado com o arquivo de origem.
 
 Inspeção visual em 1440, 768 e 390px:
 

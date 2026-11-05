@@ -68,6 +68,8 @@ try {
       await page.eval(() => document.querySelector('.hero-actions .text-link').click());
       assert.equal(await page.eval(() => location.hash), '#capabilities');
       assert.equal(await page.eval(() => document.querySelector('#customers')), null);
+      await page.eval(() => document.querySelector('.hero').scrollIntoView({ behavior: 'instant' }));
+      await sleep(200);
       await page.eval(() => document.querySelector('.hero-video-toggle').click());
       await sleep(150);
       assert.equal(await page.eval(() => document.querySelector('.hero-video').paused), true);
@@ -104,7 +106,7 @@ try {
     result.noJavaScript = await noJavaScript.eval(() => ({
       navigationVisible: getComputedStyle(document.querySelector('.navigation-content')).display !== 'none',
       titleVisible: getComputedStyle(document.querySelector('h1')).opacity === '1',
-      contactVisible: document.querySelector('#diagnostico').textContent.includes('Fale com a Ativos'),
+      contactVisible: document.querySelector('#diagnostico').textContent.includes('Quero fazer meu negócio crescer'),
       overflow: document.documentElement.scrollWidth - innerWidth,
     }));
     assert.equal(result.noJavaScript.navigationVisible, true);

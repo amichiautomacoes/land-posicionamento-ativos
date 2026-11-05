@@ -1,0 +1,39 @@
+    <section class="capabilities container section-transition-host" id="capabilities-copy" aria-labelledby="capabilities-copy-title" lang="pt-BR" tabindex="-1">
+      {% include 'components/section-transition.html' %}
+      <div class="capabilities-intro centered" data-reveal data-section-opening>
+        <h2 class="section-heading" id="capabilities-copy-title">Mais tempo para vender. Menos oportunidades perdidas.</h2>
+        <p>Agilize o atendimento, reduza tarefas manuais e mantenha seus contatos organizados para focar no que realmente importa: fazer seu negócio crescer.</p>
+      </div>
+      <div class="expanding-flow expanding-flow--benefits" data-expanding-flow>
+        {% set capabilities = [
+          ('visibility', 'Mais visibilidade', 'Apareça para quem procura seus serviços no Google e amplie a presença da sua empresa.', 'secao05_01.png', 887, 1774),
+          ('opportunities', 'Mais oportunidades', 'Alcance potenciais clientes com anúncios estratégicos e gere novos contatos para seu negócio.', 'secao_05_02.png', 887, 1774),
+          ('contact', 'Atendimento ágil', 'Responda automaticamente no WhatsApp e evite que interessados desistam pela demora.', 'sales-automation.png', 1254, 1254),
+          ('organization', 'Mais produtividade', 'Automatize tarefas repetitivas e ganhe tempo para focar no que importa: vender.', 'productivity-imagen-768.webp', 1254, 1254)
+        ] %}
+        {% for channel, title, description, image, image_width, image_height in capabilities %}
+        <article class="flow-step flow-step--{{ channel }}" data-flow-step>
+          <div class="flow-step-surface" aria-hidden="true"></div>
+          <button class="flow-step-control" type="button" aria-labelledby="copy-flow-title-{{ loop.index }}" aria-describedby="copy-flow-description-{{ loop.index }}" aria-pressed="false" data-flow-control hidden></button>
+          <div class="flow-step-inner">
+            <div class="flow-step-copy">
+              <span class="flow-step-number" aria-hidden="true">0{{ loop.index }}</span>
+              <div class="flow-step-preview" aria-hidden="true">
+                <img src="{{ static_url('images/services/' ~ ('productivity-imagen-384.webp' if channel == 'organization' else image)) }}" alt="" width="{{ image_width }}" height="{{ image_height }}" loading="lazy" decoding="async">
+              </div>
+              <div class="flow-step-text">
+                <h3 id="copy-flow-title-{{ loop.index }}">{{ title }}</h3>
+                <p id="copy-flow-description-{{ loop.index }}">{{ description }}</p>
+              </div>
+            </div>
+            <div class="flow-step-art">
+              <img src="{{ static_url('images/services/' ~ image) }}"{% if channel == 'organization' %}
+                   srcset="{{ static_url('images/services/productivity-imagen-384.webp') }} 384w, {{ static_url('images/services/productivity-imagen-768.webp') }} 768w, {{ static_url('images/services/productivity-imagen-1254.webp') }} 1254w"
+                   sizes="(min-width: 1021px) 240px, (min-width: 640px) 50vw, calc(100vw - 64px)"{% endif %}
+                   alt="" width="{{ image_width }}" height="{{ image_height }}" loading="lazy" decoding="async">
+            </div>
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>

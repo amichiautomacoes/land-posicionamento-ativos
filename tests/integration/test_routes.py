@@ -9,9 +9,12 @@ class AssetReferences(HTMLParser):
     def __init__(self):
         super().__init__()
         self.urls = set()
+        self.contacts = []
 
     def handle_starttag(self, tag, attributes):
         values = dict(attributes)
+        if {"hero-whatsapp", "button-whatsapp", "faq-support"}.intersection(values.get("class", "").split()):
+            self.contacts.append((tag, values))
         names = ("src", "poster", "data-desktop-poster", "data-mobile-poster")
         if tag in {"link", "use"}:
             names += ("href",)
@@ -33,8 +36,31 @@ class LandingRoutesTest(unittest.TestCase):
         self.assertIn('<html lang="pt-BR">', html)
         self.assertIn('data-design-system="ativos"', html)
         self.assertIn('<script type="module"', html)
-        self.assertEqual(html.count('aria-disabled="true"'), 2)
+        self.assertEqual(html.count('aria-disabled="true"'), 3)
         self.assertNotIn('href="https://wa.me/', html)
+        parser = AssetReferences()
+        parser.feed(html)
+        self.assertEqual(len(parser.contacts), 3)
+        for tag, attributes in parser.contacts:
+            self.assertEqual(tag, "button")
+            self.assertIn("disabled", attributes)
+            self.assertNotIn("href", attributes)
+            self.assertNotIn("role", attributes)
+
+    def test_configured_contact_is_a_native_external_link(self):
+        app = create_app({"TESTING": True, "WHATSAPP_NUMBER": "5511999999999"})
+        with app.test_client().get("/") as response:
+            html = response.get_data(as_text=True)
+        parser = AssetReferences()
+        parser.feed(html)
+        self.assertEqual(len(parser.contacts), 3)
+        for tag, attributes in parser.contacts:
+            self.assertEqual(tag, "a")
+            self.assertTrue(attributes["href"].startswith("https://wa.me/5511999999999?"))
+            self.assertEqual(attributes["target"], "_blank")
+            self.assertIn("noopener", attributes["rel"])
+            self.assertNotIn("disabled", attributes)
+        self.assertEqual(html.count("(abre em nova aba)"), 3)
 
     def test_all_published_references_exist(self):
         parser = AssetReferences()

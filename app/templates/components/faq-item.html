@@ -1,0 +1,20 @@
+{% macro faq_item(id, question, answer) -%}
+<article class="faq-item" data-faq-item>
+  <h3 class="faq-question">
+    <button class="faq-trigger" id="{{ id }}-trigger" type="button" aria-expanded="true" aria-controls="{{ id }}-answer" data-faq-trigger disabled>
+      <span>{{ question }}</span>
+      <svg class="faq-icon" viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true">
+        <path d="M5 12h14"/>
+        <path class="faq-icon-vertical" d="M12 5v14"/>
+      </svg>
+    </button>
+  </h3>
+  <div class="faq-answer" id="{{ id }}-answer" role="region" aria-labelledby="{{ id }}-trigger" data-faq-answer>
+    <div class="faq-answer-clip">
+      <div class="faq-answer-content">
+        <p>{{ answer }}</p>
+      </div>
+    </div>
+  </div>
+</article>
+{%- endmacro %}

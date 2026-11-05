@@ -22,7 +22,7 @@
 
 *, *::before, *::after { box-sizing: border-box; }
 html {
-  scroll-behavior: smooth;
+  scroll-behavior: auto;
   scroll-padding-top: var(--space-8);
   scrollbar-color: var(--web-border) var(--web-bg);
 }
@@ -33,11 +33,16 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   font-weight: 400;
-  line-height: 1.6;
+  line-height: var(--leading-text);
+  letter-spacing: var(--tracking-text);
+  font-kerning: normal;
+  font-optical-sizing: auto;
+  hyphens: none;
+  word-break: normal;
   -webkit-font-smoothing: antialiased;
   caret-color: var(--web-focus);
 }
-button, input, textarea, select { font: inherit; color: inherit; }
+button, input, textarea, select { font: inherit; color: inherit; letter-spacing: var(--tracking-text); }
 button, a, summary { -webkit-tap-highlight-color: transparent; }
 button, summary { cursor: pointer; }
 button { border: 0; }
@@ -49,14 +54,19 @@ h1, h2, h3, h4, p, blockquote { margin: 0; }
 h1, h2, h3, h4 {
   font-family: var(--font-display);
   font-weight: 600;
-  letter-spacing: -.025em;
+  letter-spacing: var(--tracking-display);
   text-wrap: balance;
+  overflow-wrap: break-word;
 }
-h1 { font-size: var(--text-display); line-height: 1.12; }
-h2 { font-size: var(--text-h2); line-height: 1.18; }
-h3 { font-size: var(--text-h3); line-height: 1.25; }
+h1 { font-size: var(--text-display); line-height: var(--leading-display); }
+h2 { font-size: var(--text-h2); line-height: var(--leading-section); }
+h3, h4 { line-height: var(--leading-heading); letter-spacing: var(--tracking-heading); }
+h3 { font-size: var(--text-h3); }
+p, blockquote { letter-spacing: var(--tracking-text); text-wrap: pretty; }
 ::selection { background: var(--brand-accent); color: var(--web-text-on-light); }
 :focus-visible { outline: 2px solid var(--web-focus); outline-offset: 4px; }
+/* Anchor destinations receive focus for navigation without framing the section. */
+:is(main, section)[tabindex="-1"]:focus { outline: none; }
 .skip-link {
   position: fixed; z-index: 100; top: -100px; left: var(--space-4);
   padding: var(--space-3) var(--space-6);
@@ -67,6 +77,9 @@ h3 { font-size: var(--text-h3); line-height: 1.25; }
 .visually-hidden {
   position: absolute; width: 1px; height: 1px; padding: 0;
   overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0;
+}
+@media (prefers-reduced-motion: no-preference) {
+  html[data-input="pointer"] { scroll-behavior: smooth; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
