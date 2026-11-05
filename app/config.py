@@ -11,7 +11,8 @@ def load_config():
     load_dotenv(PROJECT_ROOT / ".env")
     return {
         "PORT": int(os.getenv("PORT", "5017")),
-        "WHATSAPP_NUMBER": os.getenv("WHATSAPP_NUMBER", ""),
+        "WHATSAPP_NUMBER": os.getenv("WHATSAPP_NUMBER", "5531983833762"),
+        "ROBOTS_DIRECTIVE": "noindex, nofollow",
         "TEMPLATES_AUTO_RELOAD": True,
         "SEND_FILE_MAX_AGE_DEFAULT": None,
     }

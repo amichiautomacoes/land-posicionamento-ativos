@@ -4,7 +4,7 @@
         <h2 class="section-heading" id="capabilities-title">Da primeira busca ao primeiro contato. Tudo conectado.</h2>
         <p>Seu cliente encontra sua empresa, conhece seus serviços e chega ao WhatsApp com um atendimento ágil e organizado.</p>
       </div>
-      <div class="customer-journey" data-customer-journey data-motion="paused">
+      <div class="customer-journey" data-customer-journey data-motion="paused" data-active-step="0">
         <div class="journey-scroll" id="customer-journey-scroll" role="region" aria-label="Jornada do cliente, da descoberta ao atendimento" tabindex="0" data-journey-scroll>
           <ol class="journey-flow" role="list">
             {% set journey = [
@@ -13,7 +13,7 @@
               ('organization', 'Acompanhamento', 'CRM integrado', 'Cada oportunidade fica organizada para sua equipe dar o próximo passo.')
             ] %}
             {% for channel, title, destination, description in journey %}
-            <li class="journey-step journey-step--{{ channel }}" data-journey-step>
+            <li class="journey-step journey-step--{{ channel }}" data-journey-step{% if loop.first %} data-journey-active aria-current="step"{% endif %}>
               <div class="journey-node" data-reveal>
                 <svg class="journey-icon" viewBox="0 0 32 32" width="32" height="32" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false">
                   {% if channel == 'discovery' %}

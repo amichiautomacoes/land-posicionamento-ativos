@@ -93,6 +93,13 @@ export function initExpandingFlow() {
         delete row.dataset.flowReady;
         row.style.removeProperty('--flow-unit');
       }
+      // Only the enhanced desktop layout has a tall image panel. Static cards
+      // retain the square/wide artwork, including without JavaScript.
+      cards.forEach(card => {
+        const source = card.querySelector('[data-flow-desktop-source]');
+        const media = enhanced ? '(min-width: 1021px)' : 'not all';
+        if (source && source.media !== media) source.media = media;
+      });
       sync();
     };
     const scheduleLayout = () => { if (!layoutFrame) layoutFrame = requestAnimationFrame(layout); };

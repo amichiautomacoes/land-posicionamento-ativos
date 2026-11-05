@@ -1,8 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg">
-  <symbol id="source" viewBox="0 0 48 48"><path d="M39 32V11a5 5 0 0 0-5-5H12a5 5 0 0 0-5 5v21a5 5 0 0 0 5 5h17l10 6v-9"/><path d="M15 16h16M15 23h16M15 30h10"/></symbol>
-  <symbol id="taxonomy" viewBox="0 0 48 48"><rect x="17" y="5" width="14" height="9" rx="3"/><path d="M24 14v9M9 31v-8h30v8M24 23v8"/><rect x="3" y="31" width="12" height="11" rx="3"/><rect x="18" y="31" width="12" height="11" rx="3"/><rect x="33" y="31" width="12" height="11" rx="3"/></symbol>
-  <symbol id="search" viewBox="0 0 48 48"><circle cx="20" cy="20" r="12"/><path d="m29 29 13 13M16 14a7 7 0 0 1 10 5"/></symbol>
-  <symbol id="analytics" viewBox="0 0 48 48"><path d="M6 41h37"/><rect x="8" y="25" width="7" height="12" rx="2"/><rect x="21" y="16" width="7" height="21" rx="2"/><rect x="34" y="7" width="7" height="30" rx="2"/></symbol>
-  <symbol id="partners" viewBox="0 0 48 48"><path d="m4 24 9-11 9 4 5-4 10 2 7 11-8 9-7 4-7-2-9-9-4 3ZM13 13l7-5h8l9 7M17 22l9 9a3 3 0 0 0 4-4l-6-6M22 17l-5 5a3 3 0 0 0 4 4l5-5M13 28l9 9M31 35l5-5"/></symbol>
-  <symbol id="users" viewBox="0 0 48 48"><circle cx="18" cy="15" r="7"/><path d="M4 40v-5a14 14 0 0 1 28 0v5ZM31 8a7 7 0 0 1 0 14M36 27a13 13 0 0 1 8 12"/></symbol>
-</svg>

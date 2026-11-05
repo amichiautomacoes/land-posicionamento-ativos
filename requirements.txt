@@ -1,3 +1,0 @@
-# Preserve the original installation set; use requirements/base.txt for the landing only.
--r requirements/production.txt
--r requirements/optional.txt

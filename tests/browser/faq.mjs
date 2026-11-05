@@ -1,14 +1,15 @@
-import { Browser, sleep } from './support/browser-env.mjs';
+import { projectPath } from '../../scripts/lib/project-paths.mjs';
+import { getExecutionContext } from '../../scripts/lib/execution-context.mjs';
+import { Browser, sleep } from '../../scripts/lib/browser.mjs';
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 
-const url = process.argv[2] || 'http://127.0.0.1:5017/';
-const output = resolve('reports/qa/faq');
+const { url, output } = getExecutionContext('reports/qa/faq');
 mkdirSync(output, { recursive: true });
 const browser = await Browser.launch();
 const results = {};
-const expectedCopy = readFileSync(resolve('faq_07.txt'), 'utf8').split(/^### \d+\.\s+/m).slice(1).map(block => {
+const expectedCopy = readFileSync(projectPath('docs/content/faq.md'), 'utf8').split(/^### \d+\.\s+/m).slice(1).map(block => {
   const [question, ...lines] = block.trim().split(/\r?\n/);
   return { question, answer: lines.join('\n').trim() };
 });

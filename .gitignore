@@ -11,6 +11,7 @@
 
 # Local environments, dependencies and caches
 .venv/
+.vercel/
 venv/
 node_modules/
 __pycache__/

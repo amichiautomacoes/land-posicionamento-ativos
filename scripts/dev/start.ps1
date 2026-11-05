@@ -1,7 +1,7 @@
 param([switch]$NoBrowser)
 
 $ErrorActionPreference = 'Stop'
-. (Join-Path $PSScriptRoot 'common.ps1')
+. (Join-Path $PSScriptRoot 'server-support.ps1')
 $landingContext = Get-LandingContext
 
 if (-not (Test-LandingPage -Context $landingContext)) {

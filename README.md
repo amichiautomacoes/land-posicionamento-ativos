@@ -1,173 +1,157 @@
-# Landing page da Ativos Tecnologia
+# Ativos Negócios Locais
 
-Landing implementada em Flask, templates Jinja, CSS e módulos JavaScript nativos. A aplicação publica os arquivos de `app/static/`. Originais, referências, documentação e relatórios têm diretórios próprios.
+Landing estática preparada para publicação na Vercel. Flask e Jinja montam o HTML durante o build e atendem ao desenvolvimento local. Em produção, a Vercel serve somente `dist/`, com HTML, CSS, módulos JavaScript nativos e mídia.
 
-A página apresenta a proposta da **Ativos Negócios Locais**: presença no Google, marketing nas redes sociais e automação comercial com IA para atrair contatos e acompanhar oportunidades. O visual atual usa a assinatura metálica, vídeos próprios para desktop e celular, pilha de canais, trilho de soluções e benefícios com prévias de imagens. A jornada conecta descoberta, atendimento e acompanhamento; o FAQ reúne seis perguntas, inicialmente fechadas, antes do contato final.
+## Publicar na Vercel
 
-## Iniciar no Windows
+Importe o repositório na Vercel e mantenha **Root Directory** na raiz (`.`). O `vercel.json` configura **Framework Preset: Other**, instalação das dependências de build, geração da página e **Output Directory: dist**.
 
-Na raiz do projeto:
+Os três CTAs usam o WhatsApp **+55 (31) 98383-3762** por padrão, inclusive na Vercel. Para substituir o número, configure `WHATSAPP_NUMBER` em **Settings → Environment Variables** para Production e Preview, com DDI e DDD, somente dígitos. Um valor vazio desativa os contatos. O número será público nos links de WhatsApp gerados.
 
-~~~powershell
-.\scripts\dev\start.ps1
-~~~
+O deploy usa o código versionado: inclua no commit todos os templates, scripts e arquivos de `app/static/` necessários à página. `dist/` é gerado na Vercel e fica fora do Git. Alterações no telefone exigem um novo deploy.
 
-O comando abre `http://127.0.0.1:5017/` e reutiliza o servidor quando já estiver disponível. Acrescente `-NoBrowser` para iniciar sem abrir o navegador. Para encerrar somente o processo registrado deste projeto:
+O [guia de publicação](docs/how-to/publicar-na-vercel.md) detalha configuração, verificação e recuperação de versões. A Vercel substitui o EasyPanel como destino de produção.
 
-~~~powershell
-.\scripts\dev\stop.ps1
-~~~
+## Instalar
 
-Os comandos resolvem os caminhos pela própria localização. Logs e PID ficam em `runtime/`. Para acompanhar a execução em primeiro plano:
+Python 3.12 para a aplicação. Node 22+, Chrome, Edge ou Chromium e a skill local `design-taste-frontend` para QA de navegador e preparação de mídia.
 
-~~~powershell
-.\.venv\Scripts\python.exe run.py
-~~~
-
-## Preparar o ambiente
-
-Python 3.12 foi utilizado nesta reorganização. As verificações de navegador usam Node 22 ou superior e Chrome, Edge ou Chromium instalado.
-
-~~~powershell
+```powershell
 python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements/base.txt
-~~~
+.\.venv\Scripts\python.exe -m pip install -r requirements/development.txt
+```
 
-`requirements/base.txt` contém Flask e python-dotenv. `requirements/production.txt` acrescenta Waitress. As extensões declaradas anteriormente permanecem em `requirements/optional.txt` para decisão futura. `requirements.txt` conserva o conjunto anterior por compatibilidade. Nenhum pacote foi desinstalado.
-
-Copie `.env.example` para `.env` se precisar de configuração local. `PORT` define a porta, com padrão `5017`. A configuração de `WHATSAPP_NUMBER` foi preservada: sem número, os dois botões de contato continuam sem destino ativo.
-
-## Docker e deploy manual no EasyPanel
-
-O `Dockerfile` usa Python 3.12 e Waitress, atende em `0.0.0.0:8504` e executa com um usuário sem privilégios de administrador. O healthcheck verifica a página inicial. A imagem contém apenas `app/` e as dependências de produção; arquivos locais, skills, relatórios, originais e `.env` ficam fora pelo `.dockerignore`.
-
-Para construir e testar localmente:
-
-~~~powershell
-docker build --tag ativos-posicionamento-digital:local .
-docker run --rm --publish 8504:8504 ativos-posicionamento-digital:local
-~~~
-
-Abra `http://localhost:8504/`. Para encerrar o teste em primeiro plano, use Ctrl+C.
-
-No EasyPanel, crie um serviço **App**, envie o projeto pela opção **Upload** e configure:
-
-| Configuração | Valor |
+| Arquivo | Finalidade |
 |---|---|
-| Build | Dockerfile |
-| Caminho do Dockerfile | `Dockerfile` na raiz |
-| Contexto de build | Raiz do projeto (`.`) |
-| Comando de inicialização | Usar o padrão da imagem |
-| Protocolo do domínio | HTTP |
-| Porta de destino do domínio | `8504` |
+| `requirements/base.txt` | Flask e python-dotenv |
+| `requirements/development.txt` | Ambiente local; inclui a base |
 
-As variáveis da aplicação podem ser definidas em **Environment** no EasyPanel. O contato permanece conforme a configuração existente. Se `PORT` for informado, use `8504` para manter a configuração alinhada ao container.
+Os testes HTTP usam `unittest`; os testes de execução usam `node:test`. Ambos vêm com seus runtimes. O navegador usa o cliente da skill em `.agents/skills/design-taste-frontend/scripts/lib/cdp.mjs`, com origem em `skills-lock.json`, sem instalação npm. `CHROME_PATH` pode indicar o executável do navegador.
 
-O deploy é manual pelo painel. Consulte [App Service — documentação do EasyPanel](https://easypanel.io/docs/services/app).
+Copie `.env.example` para `.env` quando precisar de configuração local. `PORT` define a porta, com padrão em `app/config.py`. `WHATSAPP_NUMBER` permite substituir o WhatsApp dos três controles de contato: hero, FAQ e contato final.
+
+## Iniciar e encerrar
+
+```powershell
+.\scripts\dev\start.ps1
+.\scripts\dev\stop.ps1
+```
+
+`start.ps1 -NoBrowser` inicia sem abrir a página. Logs e PID ficam em `runtime/`. Em primeiro plano:
+
+```powershell
+.\.venv\Scripts\python.exe run.py
+```
+
+Os comandos resolvem os caminhos pela localização do projeto. Podem ser chamados de outra pasta usando seu caminho absoluto.
+
+## Executar verificações
+
+Todos os cenários de navegador:
+
+```powershell
+.\scripts\qa\run-browser-tests.ps1
+```
+
+O comando inicia ou reutiliza o servidor configurado. Com `-Url`, `LANDING_BASE_URL` ou `-NoStart`, usa um servidor já ativo. É possível selecionar suítes e o destino das evidências:
+
+```powershell
+.\scripts\qa\run-browser-tests.ps1 -Url http://127.0.0.1:5641/ -Suite faq,typography-reflow -OutputDirectory reports/qa/current/browser
+```
+
+O executor Node exige o servidor ativo:
+
+```powershell
+node scripts/qa/run-browser-tests.mjs --url http://127.0.0.1:5641/
+node scripts/qa/run-browser-tests.mjs --list
+```
+
+São nove suítes: `landing`, `interactions`, `card-stack`, `horizontal-journey`, `benefits-flow`, `process-rail`, `faq`, `section-transitions` e `typography-reflow`. Elas são executadas em sequência; qualquer falha resulta em código de saída `1`. O executor registra os erros e continua nas suítes seguintes, sem repetição automática. Cada suíte tem limite de três minutos.
+
+O destino padrão é `reports/qa/browser-suite/`, com `results.json` consolidado, evidências e logs por suíte. Os estados são `preflight`, `running`, `passed`, `failed` e `preflight-failed`. Os arquivos de QA são gerados e podem ser recriados pelos comandos.
+
+Testes HTTP e contratos de execução:
+
+```powershell
+.\.venv\Scripts\python.exe -m unittest discover -s tests/integration -v
+node --test tests/unit/execution-context.test.mjs
+```
+
+Uma suíte individual e a inspeção visual:
+
+```powershell
+node tests/browser/faq.mjs --url http://127.0.0.1:5641/ --out reports/qa/current/faq
+.\scripts\qa\inspect.ps1 -Url http://127.0.0.1:5641/ -OutputDirectory reports/qa/current/inspect
+```
+
+## Configuração de URL e caminhos
+
+A precedência da URL é `--url`, variável de processo `LANDING_BASE_URL` e porta lida de `app/config.py` pelo Python de `.venv`. A configuração Python lê `PORT` do ambiente ou de `.env`. Uma URL explícita dispensa consultar o Python local.
+
+Use somente opções nomeadas: `--url URL`, `--out PASTA` e, no executor, `--suite NOME,...`. Saídas relativas partem da raiz do projeto e precisam ficar dentro dela. Os auxiliares ficam em `scripts/lib/project-paths.mjs` e `scripts/lib/execution-context.mjs`.
+
+`LANDING_BASE_URL` seleciona o alvo do QA e do preparo de vídeo. `start.ps1` e `stop.ps1` administram o servidor local baseado em `PORT`.
+
+## Preparar mídias
+
+Os comandos usam as matrizes atuais em `design/originals/` e sobrescrevem suas exportações em `app/static/`:
+
+```powershell
+node scripts/media/prepare-brand-logo.mjs
+node scripts/media/prepare-channel-logos.mjs
+node scripts/media/prepare-service-images.mjs
+node scripts/media/prepare-benefit-images.mjs
+node scripts/media/prepare-benefit-expanded-images.mjs
+node scripts/media/prepare-productivity-image.mjs
+node scripts/media/prepare-hero-media.mjs --url http://127.0.0.1:5641/
+```
+
+Apenas o preparo do hero exige o servidor ativo. As matrizes locais não acompanham um clone do Git. Os procedimentos e prompts das mídias atuais estão em `docs/brand/`.
 
 ## Onde editar
 
-| Parte | Local |
+| Responsabilidade | Local |
 |---|---|
-| Criação da aplicação | `app/__init__.py` |
 | Configuração | `app/config.py` |
-| Página e contexto | `app/routes.py` |
+| Deploy e exportação estática | `vercel.json` e `scripts/build_static.py` |
+| Criação da aplicação e rotas | `app/__init__.py` e `app/routes.py` |
 | Montagem do contato | `app/services/contact_links.py` |
-| Versão dos arquivos públicos | `app/template_helpers.py` |
-| Ordem das seções | `app/templates/pages/home.html` |
+| Composição da página | `app/templates/pages/home.html` |
 | Conteúdo | `app/templates/sections/` |
+| FAQ aprovado | `docs/content/faq.md` |
 | Cabeçalho e rodapé | `app/templates/partials/` |
-| Botões de contato | `app/templates/components/contact-button.html` |
-| Cores compartilhadas | `app/static/css/tokens.css` |
-| Fontes e regras gerais | `app/static/css/base.css` |
-| Estrutura e componentes | `app/static/css/layout.css` e `components.css` |
-| Composição da landing | `app/static/css/pages/home.css` |
+| Tokens, base e estrutura | `app/static/css/` |
+| Estilos de componentes e suas media queries | `app/static/css/components/` |
+| Composição específica da landing | `app/static/css/pages/home.css` |
 | Comportamentos | `app/static/js/modules/` |
-| Mídias publicadas | `app/static/` |
-| Originais e referências | `design/` |
-| Especificação visual | [Design system](docs/brand/design-system.md) |
+| Servidor local | `scripts/dev/` |
+| Mídia, auxiliares e QA | `scripts/media/`, `scripts/lib/` e `scripts/qa/` |
 
-Os templates mantêm as âncoras existentes. Menu, vídeo e entrada das seções têm inicializadores independentes. A seção de depoimentos foi removida a pedido do usuário. Os estilos carregam nesta ordem: tokens, base, layout, componentes e página.
+A página inclui hero, introdução, serviços, benefícios, jornada, processo, FAQ e contato. Os estilos carregam tokens, base, layout, componentes compartilhados, componentes específicos e página. Os templates mantêm as âncoras usadas pela navegação.
 
-## Verificar as alterações
+## Gerar e conferir a versão de produção
 
-Testes HTTP, arquivos públicos e vídeo com requisições parciais:
+```powershell
+.\.venv\Scripts\python.exe scripts/build_static.py
+.\.venv\Scripts\python.exe -m http.server 4173 --bind 127.0.0.1 --directory dist
+```
 
-~~~powershell
-.\.venv\Scripts\python.exe -m unittest discover -s tests/integration -v
-~~~
+Acesse `http://127.0.0.1:4173/`. O servidor estático é apenas uma prévia local; encerre com `Ctrl+C`. Em macOS/Linux, use `.venv/bin/python` nos comandos. O build resolve os templates, recria `dist/` e copia os arquivos públicos e as licenças das fontes. Documentação, configurações locais e matrizes de design ficam fora da saída.
 
-As verificações de navegador e o inspetor são ferramentas locais opcionais: dependem da skill `design-taste-frontend` instalada em `.agents/skills/`. O conteúdo das skills não é versionado; `skills-lock.json` registra suas origens. Os testes HTTP e o Docker funcionam sem essas ferramentas.
+Na Vercel, `VERCEL_ENV=production` gera HTML e `robots.txt` que permitem indexação. Preview e Development geram `noindex, nofollow` e `Disallow: /`; o servidor Flask local também usa `noindex, nofollow`. Fora da Vercel, o exportador assume produção; defina `VERCEL_ENV=preview` para gerar uma prévia sem indexação. `PORT` só configura o servidor Flask local.
 
-Com o servidor ativo e a skill instalada, teste de menu, links internos, vídeo, ausência do depoimento, movimento reduzido e conteúdo sem JavaScript:
+Para testar a saída estática no navegador, com a prévia acima ativa:
 
-~~~powershell
-node tests/browser/landing.mjs
-~~~
+```powershell
+node scripts/qa/run-browser-tests.mjs --url http://127.0.0.1:4173/ --out reports/qa/vercel-static
+```
 
-Estados de hover/press, navegação por teclado, foco ao mudar de breakpoint, semântica de controles e pausa do vídeo fora da tela:
+## Documentação
 
-~~~powershell
-node tests/browser/interactions.mjs
-~~~
+- [Mapa do projeto](docs/design/organizacao-do-projeto.md).
+- [Inventário](docs/design/inventario-arquivos.csv).
+- [Sistema visual](docs/brand/design-system.md).
+- [Fontes e referências](docs/references/third-party.md).
+- [Evidências de QA](reports/qa/README.md).
 
-Pilha de cards da segunda seção: hover, clique, toque, teclado, recolhimento e movimento reduzido:
-
-~~~powershell
-node tests/browser/card-stack.mjs
-~~~
-
-Texto ampliado a 200%: leitura dos benefícios e da pilha de cards, contenção da página e retorno às interações ao restaurar o tamanho da fonte:
-
-~~~powershell
-node tests/browser/typography-reflow.mjs
-~~~
-
-Jornada horizontal: três etapas conectadas, navegação por setas e teclado, pausa do movimento e rolagem nativa no celular, inclusive sem JavaScript:
-
-~~~powershell
-node tests/browser/horizontal-journey.mjs
-~~~
-
-Expanding Flow com os quatro benefícios da nova seção: expansão de todos os cards, navegação por teclado, independência da jornada original e leitura responsiva:
-
-~~~powershell
-node tests/browser/benefits-flow.mjs
-~~~
-
-Trilho de soluções: imagem fixa, rotação da moldura, troca de imagem por scroll, retorno ao rolar para cima, links diretos, responsividade e leitura estática sem JavaScript ou com movimento reduzido:
-
-~~~powershell
-node tests/browser/process-rail.mjs
-~~~
-
-FAQ: abertura exclusiva, interrupção de transições, teclado, foco, texto ampliado, movimento reduzido e leitura sem JavaScript:
-
-~~~powershell
-node tests/browser/faq.mjs
-~~~
-
-O FAQ apresenta seis cards expansivos, com três perguntas em cada coluna no desktop. Com JavaScript, todas as perguntas começam fechadas e apenas uma resposta pode ficar aberta por vez. As perguntas e respostas fornecidas pelo usuário estão em `faq_07.txt` e em `app/templates/sections/before-start.html`. O teste de navegador compara integralmente o conteúdo publicado com o arquivo de origem.
-
-Inspeção visual em 1440, 768 e 390px:
-
-~~~powershell
-.\scripts\qa\inspect.ps1
-~~~
-
-As evidências ficam em `reports/qa/`. O adaptador em `tests/browser/support/browser-env.mjs` centraliza a integração com a biblioteca de navegador da skill de design. A origem da skill está em `skills-lock.json`.
-
-## Organização e manutenção
-
-- [Organização aplicada](docs/design/organizacao-do-projeto.md).
-- [Inventário da estrutura atual](docs/design/inventario-arquivos.csv).
-- [Origem dos arquivos e licenças](docs/references/third-party.md).
-- [Como interpretar os relatórios](reports/qa/README.md).
-
-Todos os templates e módulos usam os caminhos atuais de `app/`. As rotas da estrutura anterior foram retiradas.
-
-As skills permanecem intactas em `.agents/skills/`. Direção e briefing vigente ficam em `.taste-skill/`. Essas ferramentas locais, o ambiente virtual, caches, credenciais, execução e saídas de QA ficam fora do versionamento conforme `.gitignore`. Somente o índice de QA em `reports/qa/README.md` é mantido no Git.
-
-`design/` conserva os originais e a referência visual na cópia local e fica fora do repositório remoto. Todas as mídias necessárias à landing e suas licenças estão em `app/static/` e são versionadas. O inventário descreve a cópia de trabalho completa, incluindo esses diretórios locais.
-
-O backup e os scripts temporários da migração, os relatórios de versões anteriores e os materiais de referência sem uso foram removidos conforme solicitado. As evidências da estrutura atual permanecem em `reports/qa/project-organization/`; a limpeza está registrada em `reports/qa/cleanup/`. Os logs e o PID da execução atual ficam em `runtime/`. Os originais da marca e do hero ficam em `design/originals/`.
+`.env`, matrizes de design, ferramentas locais, ambiente virtual, caches, logs e evidências geradas ficam fora do Git. Todas as mídias necessárias ao site e suas licenças são versionadas em `app/static/`.

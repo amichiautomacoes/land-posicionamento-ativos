@@ -1,5 +1,5 @@
 
-"""Build the existing contact destination without enabling new configuration."""
+"""Build the configured WhatsApp contact URL."""
 from urllib.parse import urlencode
 
 CONTACT_MESSAGE = "Olá! Quero atrair mais clientes e destacar minha empresa no Google."

@@ -1,79 +1,136 @@
-caminho;papel
-.env.example;Entrada, configuracao ou documentacao do projeto
-.gitignore;Entrada, configuracao ou documentacao do projeto
-README.md;Entrada, configuracao ou documentacao do projeto
-requirements.txt;Entrada, configuracao ou documentacao do projeto
-run.py;Entrada, configuracao ou documentacao do projeto
-skills-lock.json;Entrada, configuracao ou documentacao do projeto
-app/__init__.py;Aplicacao e arquivos publicados
-app/config.py;Aplicacao e arquivos publicados
-app/routes.py;Aplicacao e arquivos publicados
-app/services/__init__.py;Aplicacao e arquivos publicados
-app/services/contact_links.py;Aplicacao e arquivos publicados
-app/static/css/base.css;Aplicacao e arquivos publicados
-app/static/css/components.css;Aplicacao e arquivos publicados
-app/static/css/layout.css;Aplicacao e arquivos publicados
-app/static/css/pages/home.css;Aplicacao e arquivos publicados
-app/static/css/tokens.css;Aplicacao e arquivos publicados
-app/static/fonts/inter/inter-variable.ttf;Aplicacao e arquivos publicados
-app/static/fonts/inter/OFL.txt;Aplicacao e arquivos publicados
-app/static/fonts/jetbrains-mono/jetbrains-mono-variable.ttf;Aplicacao e arquivos publicados
-app/static/fonts/jetbrains-mono/OFL.txt;Aplicacao e arquivos publicados
-app/static/icons/ui.svg;Aplicacao e arquivos publicados
-app/static/images/brand/ativos-logo.png;Aplicacao e arquivos publicados
-app/static/images/brand/reference-mark.svg;Aplicacao e arquivos publicados
-app/static/images/decorations/quote.svg;Aplicacao e arquivos publicados
-app/static/images/hero/desktop-poster.jpg;Aplicacao e arquivos publicados
-app/static/images/hero/mobile-poster.jpg;Aplicacao e arquivos publicados
-app/static/images/services/digital-marketing.png;Aplicacao e arquivos publicados
-app/static/images/services/google-presence.png;Aplicacao e arquivos publicados
-app/static/images/services/sales-automation.png;Aplicacao e arquivos publicados
-app/static/images/testimonials/larisa.png;Aplicacao e arquivos publicados
-app/static/js/main.js;Aplicacao e arquivos publicados
-app/static/js/modules/hero-video.js;Aplicacao e arquivos publicados
-app/static/js/modules/navigation.js;Aplicacao e arquivos publicados
-app/static/js/modules/reveal.js;Aplicacao e arquivos publicados
-app/static/js/modules/testimonials.js;Aplicacao e arquivos publicados
-app/static/videos/hero/desktop.mp4;Aplicacao e arquivos publicados
-app/static/videos/hero/mobile.mp4;Aplicacao e arquivos publicados
-app/template_helpers.py;Aplicacao e arquivos publicados
-app/templates/base.html;Aplicacao e arquivos publicados
-app/templates/components/contact-button.html;Aplicacao e arquivos publicados
-app/templates/pages/home.html;Aplicacao e arquivos publicados
-app/templates/partials/footer.html;Aplicacao e arquivos publicados
-app/templates/partials/header.html;Aplicacao e arquivos publicados
-app/templates/sections/contact.html;Aplicacao e arquivos publicados
-app/templates/sections/hero.html;Aplicacao e arquivos publicados
-app/templates/sections/intro.html;Aplicacao e arquivos publicados
-app/templates/sections/journey.html;Aplicacao e arquivos publicados
-app/templates/sections/process.html;Aplicacao e arquivos publicados
-app/templates/sections/services.html;Aplicacao e arquivos publicados
-app/templates/sections/testimonials.html;Aplicacao e arquivos publicados
-design/originals/brand/logo.png;Originais e referencia visual vigente
-design/originals/hero/hero-original.mp4;Originais e referencia visual vigente
-design/originals/hero/presenca-digital.png;Originais e referencia visual vigente
-design/references/enterpret/landing-page-desktop.png;Originais e referencia visual vigente
-design/references/enterpret/README.md;Originais e referencia visual vigente
-docs/brand/design-system.md;Documentacao mantida
-docs/design/inventario-arquivos.csv;Documentacao mantida
-docs/design/organizacao-do-projeto.md;Documentacao mantida
-docs/references/third-party.md;Documentacao mantida
-scripts/dev/common.ps1;Comandos de desenvolvimento e QA
-scripts/dev/start.ps1;Comandos de desenvolvimento e QA
-scripts/dev/stop.ps1;Comandos de desenvolvimento e QA
-scripts/qa/inspect.ps1;Comandos de desenvolvimento e QA
-tests/browser/landing.mjs;Testes mantidos
-tests/browser/support/browser-env.mjs;Testes mantidos
-tests/integration/test_routes.py;Testes mantidos
-requirements/base.txt;Dependencias declaradas
-requirements/optional.txt;Dependencias declaradas
-requirements/production.txt;Dependencias declaradas
-.taste-skill/brief.md;Direcao e briefing vigentes
-.taste-skill/direction.json;Direcao e briefing vigentes
-.agents/skills/**;"Skills instaladas; origem e versao em skills-lock.json"
-.venv/**;Ambiente local regeneravel
-reports/qa/**;Indice e evidencias das verificacoes
-runtime/**;Execucao local
-Dockerfile;Imagem de producao na porta 8504
-.dockerignore;Arquivos permitidos no contexto Docker
-.gitattributes;Normalizacao de texto entre Windows e Linux
+caminho;papel;escopo
+.agents/skills/**;Ferramentas locais de QA;"local; fora do Git"
+.env.example;Entrada, configuracao ou documentacao;versionado
+.gitattributes;Entrada, configuracao ou documentacao;versionado
+.gitignore;Entrada, configuracao ou documentacao;versionado
+.taste-skill/**;Contexto da apresentacao atual;"local; fora do Git"
+.venv/**;Ambiente Python do projeto;"local; fora do Git"
+.vercel/**;Configuracao local da CLI Vercel;"local; fora do Git"
+.vercelignore;Exclusoes do envio pela CLI Vercel;versionado
+README.md;Entrada, configuracao ou documentacao;versionado
+app/__init__.py;Aplicacao e arquivos publicos em uso;versionado
+app/config.py;Aplicacao e arquivos publicos em uso;versionado
+app/routes.py;Aplicacao e arquivos publicos em uso;versionado
+app/services/__init__.py;Aplicacao e arquivos publicos em uso;versionado
+app/services/contact_links.py;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/base.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components/card-stack.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components/expanding-flow.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components/faq.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components/horizontal-journey.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/components/process-rail.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/layout.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/pages/home.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/css/tokens.css;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/inter/OFL.txt;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/inter/inter-latin-ext.woff2;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/inter/inter-latin.woff2;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/space-grotesk/OFL.txt;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/space-grotesk/space-grotesk-latin-ext.woff2;Aplicacao e arquivos publicos em uso;versionado
+app/static/fonts/space-grotesk/space-grotesk-latin.woff2;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/brand/ativos-negocios-locais-metalico-favicon-16.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/brand/ativos-negocios-locais-metalico-favicon-32.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/brand/ativos-negocios-locais-metalico-touch-180.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/brand/ativos-negocios-locais-metalico.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/hero/desktop-poster.jpg;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/hero/mobile-poster.jpg;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/benefit-opportunities.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/benefit-visibility.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/digital-marketing-imagen-square-1254.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/digital-marketing-imagen-square-384.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/digital-marketing-imagen-square-768.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/google-presence-imagen-square-1254.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/google-presence-imagen-square-384.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/google-presence-imagen-square-768.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/productivity-imagen-1254.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/productivity-imagen-384.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/productivity-imagen-768.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/sales-automation-imagen-square-1254.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/sales-automation-imagen-square-384.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/sales-automation-imagen-square-768.webp;Aplicacao e arquivos publicos em uso;versionado
+app/static/images/services/sales-automation.png;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/main.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/card-stack.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/expanding-flow.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/faq.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/hero-video.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/horizontal-journey.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/interactions.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/navigation.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/process-rail.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/js/modules/reveal.js;Aplicacao e arquivos publicos em uso;versionado
+app/static/videos/hero/desktop.mp4;Aplicacao e arquivos publicos em uso;versionado
+app/static/videos/hero/mobile.mp4;Aplicacao e arquivos publicos em uso;versionado
+app/template_helpers.py;Aplicacao e arquivos publicos em uso;versionado
+app/templates/base.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/components/contact-button.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/components/faq-item.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/components/section-transition.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/pages/home.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/partials/footer.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/partials/header.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/benefits.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/contact.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/faq.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/hero.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/intro.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/journey.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/process.html;Aplicacao e arquivos publicos em uso;versionado
+app/templates/sections/services.html;Aplicacao e arquivos publicos em uso;versionado
+design/design_system_ativos/Logo metálico ATIVOS Negócios Locais.png;Matriz ou material da marca vigente;"local; fora do Git"
+design/design_system_ativos/foundations.md;Matriz ou material da marca vigente;"local; fora do Git"
+design/design_system_ativos/social-media.md;Matriz ou material da marca vigente;"local; fora do Git"
+design/design_system_ativos/web.md;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/brand/ativos-negocios-locais-metalico-transparent.png;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/hero/hero_cel.mp4;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/hero/hero_desktop.mp4;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/services/digital-marketing-imagen-square.png;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/services/google-presence-imagen-square.png;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/services/productivity-imagen.png;Matriz ou material da marca vigente;"local; fora do Git"
+design/originals/services/sales-automation-imagen-square.png;Matriz ou material da marca vigente;"local; fora do Git"
+dist/**;Frontend gerado no build;"gerado; fora do Git"
+docs/brand/design-system.md;Documentacao atual;versionado
+docs/brand/metallic-logo.md;Documentacao atual;versionado
+docs/brand/productivity-imagen.md;Documentacao atual;versionado
+docs/brand/services-imagen-square.md;Documentacao atual;versionado
+docs/content/faq.md;Documentacao atual;versionado
+docs/design/inventario-arquivos.csv;Documentacao atual;versionado
+docs/design/organizacao-do-projeto.md;Documentacao atual;versionado
+docs/how-to/publicar-na-vercel.md;Guia de publicacao;versionado
+docs/references/third-party.md;Documentacao atual;versionado
+reports/qa/**;Evidencias regeneraveis das verificacoes;"local; fora do Git"
+reports/qa/README.md;Indice das evidencias geradas;versionado
+requirements/base.txt;Dependencias atuais;versionado
+requirements/development.txt;Dependencias atuais;versionado
+run.py;Entrada, configuracao ou documentacao;versionado
+runtime/**;Execucao local atual;"local; fora do Git"
+scripts/build_static.py;Exportacao estatica para a Vercel;versionado
+scripts/dev/server-support.ps1;Servidor local;versionado
+scripts/dev/start.ps1;Servidor local;versionado
+scripts/dev/stop.ps1;Servidor local;versionado
+scripts/lib/browser.mjs;Infraestrutura compartilhada;versionado
+scripts/lib/execution-context.mjs;Infraestrutura compartilhada;versionado
+scripts/lib/project-paths.mjs;Infraestrutura compartilhada;versionado
+scripts/lib/webp-variants.mjs;Infraestrutura compartilhada;versionado
+scripts/media/prepare-brand-logo.mjs;Exportacao das midias atuais;versionado
+scripts/media/prepare-hero-media.mjs;Exportacao das midias atuais;versionado
+scripts/media/prepare-productivity-image.mjs;Exportacao das midias atuais;versionado
+scripts/media/prepare-service-images.mjs;Exportacao das midias atuais;versionado
+scripts/qa/inspect.ps1;Execucao de verificacoes;versionado
+scripts/qa/run-browser-tests.mjs;Execucao de verificacoes;versionado
+scripts/qa/run-browser-tests.ps1;Execucao de verificacoes;versionado
+skills-lock.json;Entrada, configuracao ou documentacao;versionado
+tests/browser/benefits-flow.mjs;Testes da estrutura atual;versionado
+tests/browser/card-stack.mjs;Testes da estrutura atual;versionado
+tests/browser/faq.mjs;Testes da estrutura atual;versionado
+tests/browser/horizontal-journey.mjs;Testes da estrutura atual;versionado
+tests/browser/interactions.mjs;Testes da estrutura atual;versionado
+tests/browser/landing.mjs;Testes da estrutura atual;versionado
+tests/browser/process-rail.mjs;Testes da estrutura atual;versionado
+tests/browser/section-transitions.mjs;Testes da estrutura atual;versionado
+tests/browser/typography-reflow.mjs;Testes da estrutura atual;versionado
+tests/integration/test_routes.py;Testes da estrutura atual;versionado
+tests/integration/test_static_build.py;Contratos da exportacao estatica;versionado
+tests/unit/execution-context.test.mjs;Testes da estrutura atual;versionado
+vercel.json;Configuracao de deploy estatico Vercel;versionado

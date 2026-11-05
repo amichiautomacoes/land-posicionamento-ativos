@@ -1,13 +1,10 @@
-import { Browser, sleep } from './support/browser-env.mjs';
+import { getExecutionContext } from '../../scripts/lib/execution-context.mjs';
+import { Browser, sleep } from '../../scripts/lib/browser.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const url = process.argv[2] || 'http://127.0.0.1:5017/';
-const output = resolve(root, process.argv[3] || 'reports/qa/benefits-flow');
-assert.ok(output.startsWith(root + sep));
+const { url, output } = getExecutionContext('reports/qa/benefits-flow');
 mkdirSync(output, { recursive: true });
 const browser = await Browser.launch();
 const results = {};
@@ -52,14 +49,29 @@ try {
       await ready(page);
       const titles = await page.eval(() => [...document.querySelectorAll('#capabilities-copy h3')].map(heading => heading.textContent));
       assert.deepEqual(titles, ['Mais visibilidade', 'Mais oportunidades', 'Atendimento ágil', 'Mais produtividade']);
-      assert.equal(await page.eval(() => {
-        const productivity = document.querySelector('.flow-step--organization');
-        const service = document.querySelector('.flow-step--contact .flow-step-preview img');
-        const preview = productivity.querySelector('.flow-step-preview img');
-        const art = productivity.querySelector('.flow-step-art img');
-        return preview.src !== service.src && preview.src.includes('productivity-imagen-384.webp')
-          && art.src.includes('productivity-imagen-768.webp') && preview.naturalWidth > 0 && art.naturalWidth > 0;
-      }), true, 'Productivity must use its own successfully loaded artwork');
+      const artwork = await page.eval(() => [...document.querySelectorAll('#capabilities-copy [data-flow-step]')].map(card => {
+        const preview = card.querySelector('.flow-step-preview img');
+        const art = card.querySelector('.flow-step-art img');
+        const frame = card.querySelector('.flow-step-art').getBoundingClientRect();
+        const image = art.getBoundingClientRect();
+        return {
+          source: art.currentSrc, preview: preview.currentSrc,
+          loaded: preview.naturalWidth > 0 && art.naturalWidth > 0,
+          aspect: art.naturalWidth / art.naturalHeight,
+          naturalHeight: art.naturalHeight,
+          fills: getComputedStyle(art).objectFit === 'cover' && Math.abs(frame.width - image.width) < 1 && Math.abs(frame.height - image.height) < 1,
+        };
+      }));
+      const device = width > 1020 ? 'desktop' : width >= 640 ? 'tablet' : 'mobile';
+      const aspect = device === 'desktop' ? 3 / 7 : device === 'tablet' ? 1 : 3 / 2;
+      artwork.forEach(image => {
+        assert.ok(image.loaded, 'Both closed and opened artwork must load');
+        assert.notEqual(image.source, image.preview, 'The opened card must use its own artwork');
+        assert.ok(image.source.includes(`-expanded-${device}-`), 'Opened artwork must match the current responsive layout');
+        // srcset density correction rounds both intrinsic dimensions to CSS pixels.
+        assert.ok(Math.abs(image.aspect - aspect) <= (1 + aspect) / image.naturalHeight, 'Opened artwork must have the shape of its panel');
+        assert.ok(image.fills, 'Opened artwork must cover the whole image panel without letterboxing');
+      });
       const initial = await state(page);
       assert.equal(initial.overflow, 0);
       initial.cards.forEach(card => {
@@ -90,6 +102,7 @@ try {
             assert.ok(Math.abs(card.text.width - initial.cards[cardIndex].text.width) < .1);
           });
           if (index === 3) await capture(page, `${width}-fourth-expanded.jpg`);
+          else if (width === 1440 && index > 0) await capture(page, `${width}-${index + 1}-expanded.jpg`);
         }
         await page.eval(() => document.querySelector('#capabilities-copy [data-flow-control]').focus());
         await page.send('Input.dispatchKeyEvent', { type: 'keyDown', key: 'End', code: 'End', windowsVirtualKeyCode: 35 });

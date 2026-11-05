@@ -1,9 +1,10 @@
-import { Browser, sleep } from './support/browser-env.mjs';
+import { getExecutionContext } from '../../scripts/lib/execution-context.mjs';
+import { Browser, sleep } from '../../scripts/lib/browser.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 
-const output = resolve('reports/qa/apple-design-fixes-2026-11-04/reflow');
+const { url, output } = getExecutionContext('reports/qa/typography-reflow');
 mkdirSync(output, { recursive: true });
 const browser = await Browser.launch();
 const results = [];
@@ -32,7 +33,7 @@ try {
   for (const width of [1440, 1021, 768, 390, 320]) {
     const page = await browser.newPage({width,height:900,mobile:width<600});
     try {
-      await page.goto('http://127.0.0.1:5017/', {settleMs:300});
+      await page.goto(url, {settleMs:300});
       await page.eval(async()=>{await document.fonts.ready;document.querySelector('video').pause();});
       const initial=await page.eval(measure);
       assert.equal(initial.overflow,0);

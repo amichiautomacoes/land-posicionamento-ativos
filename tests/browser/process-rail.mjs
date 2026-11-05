@@ -1,13 +1,10 @@
-import { Browser, sleep } from './support/browser-env.mjs';
+import { getExecutionContext } from '../../scripts/lib/execution-context.mjs';
+import { Browser, sleep } from '../../scripts/lib/browser.mjs';
 import { mkdirSync, writeFileSync } from 'node:fs';
-import { resolve, dirname, sep } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const url = process.argv[2] || 'http://127.0.0.1:5017/';
-const output = resolve(root, process.argv[3] || 'reports/qa/process-rail/browser');
-assert.ok(output.startsWith(root + sep));
+const { url, output } = getExecutionContext('reports/qa/process-rail/browser');
 mkdirSync(output, { recursive: true });
 const browser = await Browser.launch();
 const results = {};

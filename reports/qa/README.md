@@ -1,10 +1,13 @@
 # Evidências de qualidade
 
-Este diretório recebe as saídas das verificações atuais.
+Os relatórios, capturas e logs desta pasta são gerados pelos comandos de `scripts/qa/` e pelos testes de navegador. Podem ser recriados; não são entradas necessárias da aplicação ou dos scripts de mídia.
 
-- `project-organization/`: evidências da migração para a estrutura vigente; seus registros retratam aquele momento.
-- `browser/`: capturas e resultado do teste mantido em `tests/browser/landing.mjs`.
-- `inspect/`: saída padrão de `scripts/qa/inspect.ps1`, quando executado.
-- `cleanup/`: resultado da limpeza e dos testes da estrutura atual.
+- `current/`: verificações da estrutura limpa, com testes HTTP, contratos de execução e cenários de navegador.
+- `browser-suite/`: destino padrão do executor das nove suítes, quando utilizado sem `--out`.
+- `inspect/`: destino padrão da inspeção visual.
+- `vercel-static/`: suítes executadas contra o frontend exportado, servido sem Flask.
+- `vercel-static-recheck/`: repetição da suíte da página após falha de inicialização do Chrome na primeira execução.
 
-Relatórios e capturas de versões anteriores foram removidos a pedido do usuário. As saídas são regeneráveis e ficam fora do versionamento conforme `.gitignore`; este índice é mantido.
+`results.json` registra o estado e os códigos de saída; cada suíte recebe sua pasta de evidências e logs. Use `--out` ou `-OutputDirectory` para escolher o destino dentro do projeto.
+
+Somente este índice é versionado. As saídas geradas ficam fora do Git conforme `.gitignore`.

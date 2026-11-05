@@ -14,7 +14,7 @@ Aplicada em 04/11/2026 a pedido do usuário.
 Para repetir a exportação com a matriz disponível:
 
 ```powershell
-node scripts/dev/prepare-brand-logo.mjs
+node scripts/media/prepare-brand-logo.mjs
 ```
 
 Prompt final usado na edição:

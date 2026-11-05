@@ -1,0 +1,52 @@
+    <section class="before-start container section-transition-host" id="before-start" aria-labelledby="before-start-title" lang="pt-BR" tabindex="-1">
+      {% include 'components/section-transition.html' %}
+      <div class="faq-layout">
+        <div class="before-start-intro">
+          <div data-section-opening>
+            <h2 id="before-start-title" data-reveal>Ainda tem dúvidas? A gente esclarece.</h2>
+            <p class="faq-description" data-reveal>Saiba como funcionam nossas soluções, a implantação e o acompanhamento da sua empresa.</p>
+          </div>
+          {{ contact_button('button button-outline faq-support', 'Tirar minhas dúvidas no WhatsApp') }}
+        </div>
+        {% from 'components/faq-item.html' import faq_item %}
+        {# Copy fornecida pelo usuário, preservada em docs/content/faq.md. #}
+        {% set faq_items =
+        [
+          [
+            "O investimento realmente traz resultados?",
+            "Transformamos incerteza em clareza. Definimos KPIs certos e acompanhamos seus dados para cortar desperdícios e focar no que realmente dá retorno."
+          ],
+          [
+            "Por que o trabalho de vocês funciona se outros já falharam?",
+            "Substituímos promessas por dados e transparência. Analisamos o seu cenário, definimos metas e acompanhamos os resultados práticos das ações para orientar suas decisões com clareza."
+          ],
+          [
+            "Meu site tem visitas, mas cadê os clientes?",
+            "Audiência sem conversão é sinal de ruído na jornada. Ajustamos a experiência, a clareza da proposta e as chamadas de ação para fazer o cliente dar o próximo passo."
+          ],
+          [
+            "Anúncios pagos são obrigatórios para vender?",
+            "Não. Anúncios aceleram a visibilidade, mas a otimização orgânica também gera ótimos frutos. Estudamos o seu negócio para recomendar a estratégia com melhor custo-benefício."
+          ],
+          [
+            "Tenho medo da IA afastar meus clientes. Como funciona?",
+            "A IA serve para apoiar, não baratear ou afastar. Ela elimina filas e tarefas operacionais para que seu atendimento humano foque no que realmente exige empatia e negociação."
+          ],
+          [
+            "Preciso trocar todos os meus sistemas atuais?",
+            "Não. Aproveitamos o que você já usa e faz sentido, criando integrações eficientes. Qualquer mudança recomendada é explicada com clareza antes de acontecer."
+          ]
+        ]
+        %}
+        <div class="faq-list" data-faq>
+          {% for column in faq_items | batch(3) %}
+            {% set faq_offset = loop.index0 * 3 %}
+            <div class="faq-column">
+              {% for question, answer in column %}
+                {{ faq_item('faq-' ~ (faq_offset + loop.index), question, answer) }}
+              {% endfor %}
+            </div>
+          {% endfor %}
+        </div>
+      </div>
+    </section>

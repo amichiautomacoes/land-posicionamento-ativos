@@ -1,0 +1,3 @@
+# Local application and HTTP/unit tests (unittest and node:test are built in).
+# Browser QA additionally needs Node 22+, an installed browser and the local skill.
+-r base.txt

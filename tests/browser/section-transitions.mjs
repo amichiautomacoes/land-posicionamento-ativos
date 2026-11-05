@@ -1,17 +1,11 @@
-import { Browser, sleep } from './support/browser-env.mjs';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
-import { dirname, resolve } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { getExecutionContext } from '../../scripts/lib/execution-context.mjs';
+import { Browser, sleep } from '../../scripts/lib/browser.mjs';
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { resolve } from 'node:path';
 import assert from 'node:assert/strict';
 
-const root = resolve(dirname(fileURLToPath(import.meta.url)), '../..');
-const url = process.argv[2] || 'http://127.0.0.1:5017/';
-const output = resolve(root, 'reports/qa/section-transitions');
+const { url, output } = getExecutionContext('reports/qa/section-transitions');
 mkdirSync(output, { recursive: true });
-const baseline = resolve(output, 'before.json');
-// Historical captures describe older approved copy; compare only when requested.
-const before = process.argv.includes('--compare-historical-baseline') && existsSync(baseline)
-  ? JSON.parse(readFileSync(baseline, 'utf8')) : [];
 const browser = await Browser.launch();
 const results = {};
 const load = async (page) => {
@@ -64,28 +58,17 @@ try {
         assert.equal(section.blur, 'none');
         assert.equal(section.openingConnector, '1px');
       }
-      const previous = before.find(item => item.width === width);
-      if (previous) {
-        for (const section of current.sections) {
-          const previousSection = previous.sections.find(item => item.id === section.id);
-          if (!previousSection) continue;
-          // The user replaced benefit artwork after this historical baseline.
-          for (const key of ['heading', 'text', 'font', 'columns']) {
-            assert.deepEqual(section[key], previousSection[key], `${width}px: preserve ${key}`);
-          }
-        }
-        assert.ok(current.gapToFirstSolution < previous.gapToFirstSolution, 'The opening must be closer to the first solution');
-      }
-
       for (const section of current.sections) {
         await page.eval(id => {
           const section = id === 'hero' ? document.querySelector('.hero') : document.getElementById(id);
           window.scrollTo({ top: Math.max(0, section.getBoundingClientRect().top + scrollY - 96), behavior: 'instant' });
         }, section.id);
         await sleep(260);
-        const opacity = await page.eval(id => {
+        const opacity = await page.eval(async id => {
           const section = id === 'hero' ? document.querySelector('.hero') : document.getElementById(id);
           const transition = section.querySelector('[data-section-transition]');
+          // Wait for the actual completion instead of sampling the last animation frame.
+          await Promise.all((transition?.getAnimations() ?? []).map(animation => animation.finished.catch(() => {})));
           return transition ? getComputedStyle(transition).opacity : 'absent';
         }, section.id);
         assert.equal(opacity, section.hasTransition ? '1' : 'absent', `${width}px: ${section.id} separator state`);

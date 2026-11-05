@@ -1,110 +1,82 @@
 ---
-type: design-doc
+type: architecture
 status: Accepted
-date: 2026-10-29
+date: 2026-11-05
 language: pt-BR
 ---
 
 # Organização do projeto
 
-A landing usa um pacote Flask, templates por seção, JavaScript por comportamento e cinco camadas CSS. A organização e a limpeza foram autorizadas pelo usuário. O [inventário](inventario-arquivos.csv) descreve os arquivos da estrutura vigente.
+A landing separa configuração, rotas, serviço de contato e interface. Flask e Jinja geram o HTML durante o build e atendem ao desenvolvimento local. A Vercel serve a saída estática `dist/`, com CSS e JavaScript nativos.
 
-## Estrutura
-
-~~~text
-ativos_posicionamento_digital/
-├── app/
-│   ├── __init__.py
-│   ├── config.py
-│   ├── routes.py
-│   ├── template_helpers.py
-│   ├── services/contact_links.py
-│   ├── templates/
-│   │   ├── base.html
-│   │   ├── pages/home.html
-│   │   ├── partials/
-│   │   ├── components/
-│   │   └── sections/
-│   └── static/
-│       ├── css/pages/
-│       ├── js/modules/
-│       ├── images/
-│       ├── icons/
-│       ├── videos/hero/
-│       └── fonts/
-├── design/
-│   ├── originals/
-│   └── references/enterpret/
-├── docs/
-│   ├── brand/
-│   ├── design/
-│   └── references/
-├── scripts/
-│   ├── dev/
-│   └── qa/
-├── tests/
-│   ├── integration/
-│   └── browser/support/
-├── reports/qa/
-├── runtime/
-├── requirements/
-├── .agents/skills/
-├── .taste-skill/
-├── .venv/
-├── .env.example
-├── .gitignore
-├── requirements.txt
-├── skills-lock.json
-├── run.py
-└── README.md
-~~~
-
-## Responsabilidades
+## A aplicação reúne somente o que atende a página
 
 | Local | Responsabilidade |
 |---|---|
-| `app/__init__.py` | Cria o Flask e registra configuração, rotas e auxiliares |
-| `app/config.py` | Lê `PORT` e `WHATSAPP_NUMBER` do ambiente |
-| `app/routes.py` | Renderiza a página e prepara seu contexto |
-| `app/services/contact_links.py` | Normaliza o telefone e monta o contato configurado |
-| `app/template_helpers.py` | Gera URLs de estáticos com versão baseada no arquivo |
-| `run.py` | Inicia a aplicação local |
-| `app/templates/pages/home.html` | Define a ordem das sete seções |
-| `app/templates/sections/` | Conteúdo de cada seção |
-| `app/templates/partials/` | Cabeçalho e rodapé |
-| `app/templates/components/` | Elementos reutilizados, como o botão de contato |
-| `app/static/js/modules/` | Inicializadores de menu, vídeo, depoimento e animações |
+| `app/__init__.py` | Compor a aplicação Flask |
+| `app/config.py` | Ler configuração do ambiente e `.env` |
+| `app/routes.py` | Preparar contexto e renderizar a página |
+| `app/services/contact_links.py` | Normalizar telefone e montar o contato |
+| `app/template_helpers.py` | Gerar URLs versionadas dos arquivos públicos |
+| `run.py` | Iniciar o servidor de desenvolvimento |
+| `vercel.json` | Configurar instalação, build e saída estática na Vercel |
+| `scripts/build_static.py` | Gerar HTML, robots.txt e arquivos públicos em `dist/` |
+| `app/templates/` | Composição, conteúdo e componentes Jinja |
+| `app/static/` | CSS, JavaScript, imagens, vídeos e fontes usados pelo site |
 
-Os módulos JavaScript verificam os elementos de que precisam antes de inicializar. A página usa módulos nativos, sem compilação adicional.
+A página inclui oito seções: hero, introdução, serviços, benefícios, jornada, processo, FAQ e contato. `benefits.html` e `faq.html` identificam os conteúdos correspondentes. A referência editorial do FAQ fica em `docs/content/faq.md` e é comparada integralmente com a página pelo teste específico.
 
-Os estilos carregam nesta ordem: `tokens.css`, `base.css`, `layout.css`, `components.css` e `pages/home.css`. Os arquivos concentram, respectivamente, valores compartilhados, regras gerais, estrutura, componentes e composição da landing.
+Os três controles de contato dependem de `WHATSAPP_NUMBER`. As regras de montagem do link ficam no serviço; os templates apresentam o resultado.
 
-## Arquivos publicados e fontes de trabalho
+## Cada componente mantém seus estilos e comportamento
 
-`app/static/` contém as mídias, fontes e arquivos entregues ao navegador. A aplicação publica somente a página e os arquivos estáticos atuais; as rotas antigas foram retiradas.
+O carregamento CSS em `app/templates/base.html` segue tokens, base, layout, componentes compartilhados, componentes específicos e composição da página.
 
-`design/originals/` conserva a logo e os materiais originais do hero. `design/references/enterpret/` conserva a captura que orienta a composição. A [documentação de terceiros](../references/third-party.md) registra as origens e as licenças das fontes publicadas.
+| CSS específico | Conteúdo |
+|---|---|
+| `components/card-stack.css` | Pilha de canais |
+| `components/process-rail.css` | Trilho de serviços |
+| `components/horizontal-journey.css` | Jornada horizontal |
+| `components/expanding-flow.css` | Benefícios expansíveis |
+| `components/faq.css` | Perguntas e respostas |
+| `pages/home.css` | Hero, composição, processo, contato e entradas das seções |
 
-As skills permanecem em `.agents/skills/` com seu lock. `.taste-skill/brief.md` descreve a landing vigente e `direction.json` registra sua direção visual.
+As regras responsivas acompanham o respectivo componente. Os nove módulos JavaScript são inicializados por `app/static/js/main.js`. O conteúdo continua legível sem JavaScript e com movimento reduzido.
 
-## Desenvolvimento e verificação
+## Os scripts são separados por finalidade
 
-Os comandos e a preparação do ambiente estão no [README](../../README.md).
+| Pasta | Uso |
+|---|---|
+| `scripts/dev/` | Iniciar e encerrar o servidor; contexto compartilhado em `server-support.ps1` |
+| `scripts/media/` | Exportar marca, vídeos e ilustrações das matrizes atuais |
+| `scripts/lib/` | Caminhos, contexto de execução, navegador e codificação WebP |
+| `scripts/qa/` | Executor das suítes e inspeção visual |
+| `tests/integration/` | Contratos HTTP, mídia pública, contato e limites de publicação |
+| `tests/unit/` | Contratos de URL, opções e orquestração |
+| `tests/browser/` | Nove suítes de comportamento e responsividade |
 
-- `scripts/dev/start.ps1` inicia ou reutiliza o servidor local.
-- `scripts/dev/stop.ps1` valida e encerra o processo registrado do projeto.
-- `scripts/qa/inspect.ps1` executa a inspeção da skill de design.
-- `tests/integration/test_routes.py` verifica a página, as mídias, as requisições parciais de vídeo e os limites da área pública.
-- `tests/browser/landing.mjs` verifica quatro larguras, menu, links internos, vídeo, depoimento, movimento reduzido e conteúdo sem JavaScript.
+A URL usa `--url`, depois `LANDING_BASE_URL` e, por último, `PORT` obtido de `app/config.py` pelo Python local. Caminhos são resolvidos a partir do projeto, e saídas precisam ficar dentro dele. A interface dos comandos aceita opções nomeadas.
 
-`reports/qa/` recebe resultados atuais e regeneráveis. `runtime/` recebe PID e logs da execução local. Ambiente virtual, caches, configuração local e saídas geradas ficam fora do versionamento.
+O executor valida as ferramentas e a resposta da landing, executa as suítes em sequência, registra cada resultado e retorna código `1` se alguma falhar. O relatório consolidado inclui estados e códigos de saída. Os comandos estão no [README](../../README.md).
 
-## Dependências
+## O build e o desenvolvimento compartilham as dependências
 
-`requirements/base.txt` define Flask e python-dotenv. `production.txt` acrescenta Waitress. As extensões previamente declaradas permanecem em `optional.txt` até a definição de seu uso futuro; nenhum pacote do ambiente foi desinstalado. A instalação completa continua disponível por `requirements.txt`.
+`requirements/base.txt` fixa Flask e python-dotenv, usados para gerar o HTML na Vercel. `requirements/development.txt` inclui a mesma base para o ambiente local. Os testes usam `unittest` e `node:test`, incluídos nos runtimes. Docker e Waitress foram retirados do fluxo de produção.
 
-## Limpeza aplicada
+O QA de navegador e o preparo de mídia exigem Node 22+, Chrome, Edge ou Chromium e a skill local `design-taste-frontend`, com origem em `skills-lock.json`. Eles não precisam de pacotes npm. Os testes HTTP e o build da Vercel não dependem dessa ferramenta local.
 
-Foram removidos o backup e os scripts temporários da migração, os relatórios de versões anteriores, fontes e recortes sem uso, SVGs substituídos, o extrator exclusivo da referência antiga, o briefing anterior e a camada de compatibilidade de URLs. O briefing vigente e a documentação foram atualizados para a estrutura final. As evidências atuais da reorganização foram mantidas.
+## Fontes de trabalho e saídas geradas têm limites próprios
 
-Layout, copy, mídias publicadas e configuração de contato foram preservados. Condições comerciais, público e diferenciais, substituição do depoimento, ativação do WhatsApp e publicação continuam sendo decisões separadas.
+`design/originals/` contém as matrizes das mídias atuais; `design/design_system_ativos/` reúne os materiais da marca vigente. Esses materiais são locais e ficam fora da saída estática. As [referências e licenças](../references/third-party.md) documentam o material distribuído.
+
+`runtime/` recebe PID e logs do servidor. `reports/qa/` recebe evidências regeneráveis. `.env`, caches, ferramentas locais, `.vercel/`, ambiente virtual e `dist/` ficam fora do Git. `.vercelignore` também exclui arquivos locais dos envios pela CLI. Apenas `dist/` é servido pela Vercel; os detalhes estão no [guia de publicação](../how-to/publicar-na-vercel.md).
+
+O [inventário](inventario-arquivos.csv) lista os arquivos mantidos e as fontes locais, com `caminho`, `papel` e `escopo`. Diretórios regeneráveis são descritos por padrões. Credenciais não são inventariadas.
+
+## A verificação acompanha a estrutura atual
+
+Os testes HTTP conferem a página, contatos, arquivos e alternativas de `srcset`, requisições parciais dos vídeos e limites entre conteúdo público e interno. Também verificam que as mídias e fontes publicadas são referenciadas pelo HTML ou pelo CSS.
+
+As suítes de navegador cobrem menu, teclado, foco, vídeo, pilha, benefícios, jornada, trilho, FAQ, transições e texto ampliado. O executor reúne resultados e logs em `reports/qa/`; as evidências da limpeza ficam em `reports/qa/current/`.
+
+O registro da limpeza anterior está em `reports/qa/current/verification.json`. A migração para a Vercel acrescenta testes da exportação estática, da reconstrução da saída e da indexação por ambiente. A versão gerada pode receber as mesmas suítes de navegador usando `--url`, conforme o guia de publicação.
