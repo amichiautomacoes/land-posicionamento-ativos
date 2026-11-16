@@ -1,119 +1,80 @@
-# Design system da landing — ATIVOS Tecnologia
+# Sistema visual da landing - ATIVOS
 
-A landing aplica a identidade **Corporate Tech Premium discreta** dos arquivos fornecidos pelo usuário em 03/11/2026:
+A identidade do site segue o **Design System Geral v0.5, de 16/11/2026**, fornecido em `design/design_system_ativos/base.md`. Esse arquivo substitui as regras anteriores de paleta, tipografia e espaçamento. Os valores do canvas social são adaptados à web conforme a seção 7 do manual.
 
-- [Foundations v0.3](../../design/design_system_ativos/foundations.md): identidade, paleta, tipografia e marca.
-- [Web v0.1](../../design/design_system_ativos/web.md): tokens semânticos, componentes, acessibilidade e responsividade.
+## Paleta e acento
 
-Foundations prevalece em conflitos de identidade. Os valores propostos em Web foram adotados para esta implementação; isso não representa homologação geral das pendências do manual. Os documentos de origem ficam em `design/`, conservado localmente e fora do versionamento remoto.
-
-## Tokens e tipografia
-
-`app/static/css/tokens.css` é a fonte única dos tokens usados pela landing.
+`app/static/css/tokens.css` centraliza os valores; componentes usam os aliases semânticos `--web-*` e `--brand-*`.
 
 | Papel | Token | Valor |
 |---|---|---|
-| Canvas | `--brand-background` | Midnight Navy `#101B33` |
-| Ação principal | `--brand-primary` | Deep Cyan `#007FA8` |
-| Apoio e ícones | `--brand-secondary` | Clear Sky `#55A9DD` |
-| Painel claro | `--brand-surface` | Ice Blue `#DDF3FF` |
-| Foco e ênfase pontual | `--brand-accent` | Acid Lime `#C7FF3D` |
-| Superfícies escuras | `--web-surface-1` / `--web-surface-2` | `#192740` / `#22334F` |
-| Texto | `--web-text` / `--web-text-muted` | `#FFFFFF` / `#C0D0E3` |
-| Links sobre Navy | `--web-link` | `#80CCF1` |
-| Borda de superfície | `--web-border` | `#40516B` |
-| Hover / ação pressionada | `--web-action-hover` / `--web-action-active` | `#006A8C` / `#005B78` |
-| Controle desabilitado | `--web-disabled-bg` / `--web-disabled-text` | `#34435A` / `#B0BACA` |
+| Fundo | `--color-background` | `#0C0E12` |
+| Superfície | `--color-surface` | `#1A1D24` |
+| Borda de 1px | `--color-border` | `#1E2C3F` |
+| Texto principal | `--color-text-primary` | `#FFFFFF` |
+| Apoio, links e ícones | `--color-text-support` | `#A3ABB8` |
+| Acento apenas em texto | `--color-accent` | `#C7FF3D` |
+| Ação principal, Deep Cyan | `--color-action` | `#007FA8` |
+| Contorno de controles, Clear Sky | `--color-action-support` | `#55A9DD` |
 
-Títulos usam **Space Grotesk 600**, em caixa natural; corpo, navegação e controles usam **Inter 400–600**. As duas famílias são auto-hospedadas em WOFF2, com subsets Latin e Latin Extended e `font-display: swap`. O lettering do logotipo mantém a identidade da marca.
+Os títulos podem destacar um trecho com `.text-accent`; a seção 03 mantém todos os títulos brancos. A numeração dos cards das seções 04 e 06 usa Acid Lime por solicitação do usuário. Não há fundos, halos, linhas, marcadores ou sombras de interface em verde-lima. A seleção usa fundo neutro e texto lima; os indicadores de foco são brancos. Os controles usam Deep Cyan e Clear Sky da identidade ATIVOS.
 
-A escala tipográfica usa display fluido, H2 fluido, H3 de 24px, corpo de 16px e texto auxiliar de 14px. Parágrafos de leitura usam medida máxima de 65 caracteres quando o layout permite. Números de etapas usam algarismos tabulares.
+O botão principal usa Deep Cyan `#007FA8` com texto branco; hover `#006A8C` e pressão `#005B78`. Botões secundários, menu e controle de vídeo usam contorno Clear Sky `#55A9DD`, com estados de fundo azul discreto. O contato final usa a mesma superfície escura dos demais painéis. As transições entre seções usam uma linha neutra, sem gradiente ou halo.
 
-O tracking dos títulos de seção permanece em `-.025em`; H3 e títulos da pilha usam `-.01em`, preservando famílias, pesos e tamanhos. Títulos e textos das soluções permitem quebrar palavras que excedam a largura disponível. Os links do cabeçalho podem quebrar em outra linha quando o texto ampliado ocupa mais espaço. Na jornada, dimensões em `rem` acompanham a ampliação da fonte; em telas estreitas, os cards respeitam a largura da área de rolagem.
+Por solicitação do usuário, a seção 03 usa títulos e números brancos. A numeração dos cards das seções 04 (benefícios) e 06 (processo) usa Acid Lime `#C7FF3D` em todos os estados. O botão de WhatsApp da seção 07 (FAQ) usa o mesmo padrão preenchido Deep Cyan com texto branco da seção 08 (contato).
 
-Tracking e entrelinhas são definidos pelos tokens `--tracking-*` e `--leading-*`. Corpo e textos auxiliares usam tracking zero. A entrelinha é proporcional ao tamanho da fonte: corpo `1.6` (16px → 25,6px), texto auxiliar `1.5` (14px → 21px) e controles `1.4` (14px → 19,6px). Títulos mantêm razões menores por escala. O kerning usa `normal` e o ajuste óptico usa `auto` nas fontes que oferecem esse recurso. Títulos usam `text-wrap: balance`; parágrafos e listas de leitura usam `text-wrap: pretty`. `hyphens: none` evita hifenização automática, e as quebras de emergência continuam disponíveis para palavras que excedam a coluna.
+## Tipografia responsiva
 
-## Layout e componentes
+Inter é a única família de comunicação, auto-hospedada em WOFF2 variável com pesos reais de 100 a 900 e subsets Latin e Latin Extended. A licença acompanha a fonte. O lettering da marca oficial permanece intacto. Não há código nem rótulo técnico que exija JetBrains Mono nesta página.
 
-Os estilos de pilha de cards, trilho, jornada, benefícios e FAQ ficam em `app/static/css/components/`, incluindo suas media queries. `pages/home.css` concentra a composição da página, o hero, o processo, o contato e as entradas de seção. A lista de carregamento em `app/templates/base.html` mantém os componentes específicos depois dos componentes compartilhados e antes da composição da página.
+| Papel | Adaptação web | Peso / entrelinha / tracking |
+|---|---|---|
+| Hero | 40–56px, fluido | 900 / 0,98 / −0,04em |
+| Títulos de seção | 32–48px, fluido | 900 / 1 / −0,04em |
+| Soluções | 24–32px, fluido | 800 / 1,1 / −0,035em |
+| Nomes de cards | 24px; pilha compacta a 18px | 800 / 1,1 / −0,035em |
+| Índices de etapas | 32px, algarismos tabulares | 900 / 1 / −0,035em |
+| Corpo e descrições | 16px | 500 / 1,5 / 0 |
+| Apoio e controles | 14px | 500–600 / 1,4–1,5 / 0 |
 
-O container tem limite de **1200px**, com margens de 16px em celulares, 24px a partir de 640px, 32px a partir de 1024px e 40px a partir de 1440px. Cada borda de seção usa padding vertical de **24px em mobile, 32px em tablet e 40px em desktop**, definido por `--section-space`. A soma de seções consecutivas produz intervalos de **48px, 64px e 80px**, respectivamente. Dentro de cada seção, `--section-content-gap` separa a introdução do conteúdo por 24px em mobile e 32px a partir de 640px. As introduções da jornada e do processo usam 16px entre título e parágrafo; as demais distâncias seguem a escala de 4px e 8px dos manuais. O painel de contato usa padding vertical de 32px em mobile e 40px nas demais telas; o rodapé usa 32px.
+Os valores são responsivos em `rem`; os máximos referem-se à configuração padrão de fonte. A adaptação preserva leitura a 360px sem reduzir textos essenciais aos tamanhos do canvas social escalado. Títulos usam quebra equilibrada; parágrafos usam `text-wrap: pretty` e medida de até 65ch. Cards verificam o espaço disponível após redimensionamento e carregamento das fontes. Com texto ampliado, pilha e benefícios passam à leitura estática quando necessário e recuperam a interação quando o texto volta a caber.
 
-A seção imediatamente após o hero recebe o intervalo completo no topo, pois o hero termina na mídia e não contribui com padding inferior. Essa compensação mantém a mesma distância de 48px, 64px ou 80px na primeira transição.
+## Espaçamento e componentes
 
-- **Botão primário:** Deep Cyan com texto branco, raio de 8px e altura mínima de 48px. Exemplo: contato pelo WhatsApp quando configurado. Não usar transparência, glow ou blur.
-- **Botão secundário:** transparente com contorno e texto visíveis. Exemplo: contato no cabeçalho, que leva à seção final.
-- **Desabilitado:** fundo e texto próprios, sem hover, movimento ou ativação. Sem `WHATSAPP_NUMBER`, os contatos são botões nativos com `disabled` e `aria-disabled="true"`. Com número configurado, são links nativos para o WhatsApp, com aviso acessível de abertura em nova aba.
-- **Foco:** contorno externo Lime de 2px com offset de 4px. No painel Ice Blue, usar Navy para manter contraste do indicador.
-- **Cards:** Navy elevado com borda discreta, raio de 12px e sem sombra. Exemplos: jornada e processo. Não tratar cards informativos como links.
-- **Painel claro:** Ice Blue com texto Navy e raio de 16px. Exemplo: contato final. Não usar Clear Sky como texto sobre Ice Blue.
-- **Menu e controles:** alvos mínimos de 44px, estados de hover e foco, Escape e retorno de foco no menu. A navegação fechada usa `hidden` real, retirando os links da ordem de Tab e da árvore de acessibilidade. Ao mudar o breakpoint de 1020px, o foco é recuperado para um controle visível. Links internos levam o foco ao destino com `preventScroll`, preservando a navegação nativa por fragmentos.
+A escala é `8 · 16 · 24 · 32 · 48 · 64 · 96px`, representada por `--space-1` a `--space-7`. A largura máxima do conteúdo é 1200px; no hero desktop, a composição ocupa a largura disponível entre as margens da página. Margens laterais: 16px no celular, 32px a partir de 640px, 48px a partir de 1024px e 64px a partir de 1440px.
 
-### Interações e desempenho
+- Título → descrição: 24px.
+- Nome → frase dentro do card: 8px.
+- Grupo do título → conteúdo: 32px no celular e 48px a partir de 640px.
+- Entre cards de benefícios, etapas e FAQ: 24px.
+- Padding de cards: até 24px; 16px nos controles compactos do FAQ mobile.
+- Intervalos entre seções: 64px no celular e 96px nas demais telas, somando as bordas vizinhas.
+- Raios: 8px nos controles, 12px nos cards e 16px nos painéis. Alvos de interação: mínimo de 44px; ações principais de 48px.
 
-Os refinamentos seguem a skill `emil-design-eng`, preservando composição, marca e conteúdo. O feedback de pressão usa `scale(.97)` durante 100ms; o retorno e as camadas de estado usam 160ms, com `cubic-bezier(.23, 1, .32, 1)`. Os controles interpolam transformações e opacidade. Os benefícios usam recorte (`clip-path`) para revelar a imagem, sem animar dimensões de layout. Os fundos de hover/active ficam em pseudo-elementos com opacidade, sem animar cores ou bordas.
+O CSS carrega tokens, base, layout, componentes compartilhados, componentes específicos e composição em `pages/home.css`. Cada componente mantém suas media queries em `app/static/css/components/`.
 
-Hover é restrito a `(hover: hover) and (pointer: fine)`. Foco e ativação por teclado são imediatos, com contorno visível; o scroll suave e as entradas ao navegar pelo teclado são desativados. `prefers-reduced-motion` preserva todos os estados e remove animações. Visibilidade usa `IntersectionObserver` e breakpoints usam `matchMedia`. O trilho de soluções registra um listener passivo de scroll somente enquanto a seção está próxima da tela; as atualizações usam `requestAnimationFrame`, com geometria medida no redimensionamento, nas mudanças de layout e no carregamento das fontes. Não há listener global de mousemove. O Expanding Flow usa `pointermove` somente na própria linha para distinguir movimento real do cursor de entradas causadas pelo deslocamento dos cards. Ele mede as faces somente quando a seleção muda e no redimensionamento, usando `ResizeObserver` e animações nativas; essas medições não rodam a cada frame.
+## Mídias e marca
 
-A segunda seção mantém a copy na metade esquerda e apresenta uma pilha de três cards na direita: Google, Redes Sociais e WhatsApp. Google e WhatsApp usam a mesma superfície Navy elevada, borda e texto branco; Redes Sociais usa Deep Cyan. Os três compartilham a tipografia. O hover endireita a face sem deslocar a área original de clique. Clique, toque, Enter ou Espaço abrem um card por completo; os outros dois ficam menores na base. Um novo clique no card aberto, Escape ou uma pressão fora da pilha recolhem o conjunto. Os botões nativos expõem a seleção com `aria-pressed`; sem JavaScript, os três títulos permanecem visíveis em cards estáticos. No celular, a pilha aparece abaixo da copy.
+A assinatura metálica e as logos oficiais de Google, Instagram e WhatsApp preservam as cores originais. O símbolo mantém proporção e não é redesenhado com Inter. Os ícones do navegador e de toque usam fundo grafite `#0C0E12`, exportado do token canônico por `scripts/media/prepare-brand-logo.mjs`.
 
-Os cartões também exibem as logos de Google, Instagram e WhatsApp fornecidas pelo usuário, com [fundos removidos por ImageGen](channel-logos-imagen.md). As versões WebP de 64, 128 e 192px preservam o canal alfa e são selecionadas por `srcset`, considerando a ampliação do cartão aberto. O tamanho visual é de 40px no desktop e 28px até 1100px. As logos ficam fora da área dos textos e não interceptam eventos de clique.
+Por solicitação do usuário, imagens, posters e vídeos mantêm suas cores originais, sem filtro de escala de cinza. Os arquivos originais e as exportações são preservados. As ilustrações continuam conceituais, sem representar provas de resultados comerciais.
 
-A jornada “Da primeira busca ao primeiro contato. Tudo conectado.” apresenta **uma única sequência horizontal**, inspirada nos blocos conectados do [AgentFlow](https://largest-europe-634809.framer.app/), referência escolhida pelo usuário em 04/11/2026. Descoberta, Atendimento e Acompanhamento são ligados por linhas com pequenos pontos Lime em movimento. O destaque Deep Cyan acompanha uma etapa por vez, na mesma ordem, em um ciclo de seis segundos: dois segundos por cartão. Os outros cartões mantêm a superfície Navy neutra. O relógio da animação dos pontos também controla o destaque, com uma camada azul que muda apenas de opacidade em 160ms, sem alterar a geometria dos cartões. A etapa ativa recebe `aria-current="step"`.
+No desktop, vídeo e poster do hero preenchem toda a seção: posição absoluta com `inset: 0`, largura e altura de 100% e `object-fit: cover`, com enquadramento à direita. Não há recuo lateral, proporção fixa no elemento ou máscaras nas bordas. A copy ocupa os 46% à esquerda, no campo vazio da própria mídia, sem camada escura sobre a arte. A altura de referência segue 16:9, limitada entre 560px e 760px, e pode crescer com o conteúdo. O enquadramento mobile e os arquivos de vídeo permanecem preservados. Os registros de origem e prompts continuam em [fontes e mídias](../references/third-party.md), [marca](metallic-logo.md), [soluções](services-imagen-square.md), [benefícios](benefits-responsive-imagen.md) e [painéis expandidos](benefits-expanded-imagen.md).
 
-No desktop, os três passos cabem no painel; em telas menores, a mesma linha oferece rolagem nativa, botões anterior/próximo, contador e navegação por setas, Home e End. Durante a reprodução, a rolagem horizontal acompanha a etapa ativa. Navegação manual ou arraste pausa a reprodução e mantém o cartão escolhido em destaque para leitura; o controle de movimento permite retomar. A pausa também congela o destaque e os pontos fora da tela ou em aba oculta. Com `prefers-reduced-motion`, a navegação permanece disponível, os pontos ficam ocultos e a troca manual de destaque é imediata. O contador anuncia escolhas manuais, sem anunciar cada avanço automático. Sem JavaScript, a primeira etapa mantém o destaque inicial, o conteúdo permanece disponível por rolagem e os controles de aprimoramento ficam ocultos. A implementação usa CSS e JavaScript nativos, sem dependências da referência.
+## Interações e acessibilidade
 
-A seção seguinte mantém **Expanding Flow** para os quatro benefícios: Mais visibilidade, Mais oportunidades, Atendimento ágil e Mais produtividade. Acima de 1020px, o card selecionado ocupa duas partes da linha e os demais, uma parte cada. Hover, clique, toque ou foco selecionam outro card; Tab, setas, Home e End permitem navegação por teclado. A largura do texto permanece constante enquanto a imagem é revelada à direita. Até 1020px, ou sem JavaScript, os quatro benefícios ficam empilhados com texto e imagem disponíveis.
+A composição, os textos, as âncoras e os contatos são preservados. A página mantém oito seções: hero, introdução, soluções, benefícios, jornada, processo, FAQ e contato.
 
-No Expanding Flow, os cards fechados exibem uma miniatura acima do título; ao selecionar o card, a prévia desaparece e uma arte própria para o estado aberto aparece à direita. As [composições abertas criadas com ImageGen](benefits-expanded-imagen.md) têm formato vertical no desktop, quadrado no tablet e horizontal no celular. Um `<picture>` escolhe a composição, e `object-fit: cover` preenche todo o painel de imagem, sem faixas vazias. A altura dos cards reserva espaço para imagem e texto sem sobreposição. Até 1020px, sem JavaScript ou com texto ampliado que exija a apresentação estática, apenas a imagem principal é exibida, evitando duplicação visual. A fonte vertical só é ativada enquanto o layout interativo do desktop está ativo.
+- Pilha de canais: Google, Redes Sociais e WhatsApp compartilham o mesmo fundo e a mesma borda branca de 1px. Clique, toque ou teclado abrem um card; Escape, nova ativação ou pressão externa recolhem. `aria-pressed` acompanha a seleção.
+- Soluções: imagem fixa com moldura giratória e contrarrotação; marcadores e trilho neutros. Sem JavaScript ou com movimento reduzido, cada solução tem imagem e texto em leitura estática.
+- Benefícios: quatro cards expansíveis a partir de 1200px, lista estática até 1199px. Setas, Home/End, foco, toque e mouse selecionam. A expansão preserva a largura do texto.
+- Jornada: destaque neutro e conexões discretas; reprodução em ciclo, pausa e navegação manual preservadas. No celular, a sequência é vertical; no tablet, há rolagem horizontal contida.
+- FAQ: seis perguntas, duas colunas acima de 1020px e uma abaixo. Apenas uma resposta aberta; botões nativos, `aria-expanded`, Enter/Espaço e navegação por setas/Home/End. O conteúdo aprovado permanece em `docs/content/faq.md`.
+- Navegação: menu com Escape e retorno de foco; links fechados saem da ordem de Tab. Âncoras transferem o foco ao destino.
+- Vídeo: pausa fora da tela e em aba oculta; pausa manual preservada; erro mantém o poster. Movimento reduzido impede autoplay, permitindo reprodução manual.
 
-O card “Mais produtividade” usa o [Painel CRM Neon Isométrico adaptado com ImageGen](productivity-crm-imagen.md). A miniatura mostra o CRM e sua rede de contatos no estilo tecnológico azul da referência fornecida pelo usuário. O painel aberto usa três composições independentes desses elementos, próprias para desktop, tablet e celular, com duas resoluções por formato e preenchimento de toda a área da imagem.
-
-Os outros três benefícios também usam [miniaturas adaptadas com ImageGen](benefits-responsive-imagen.md) a partir dos PNGs fornecidos pelo usuário. Visibilidade e oportunidades têm prévias quadradas; atendimento conserva os smartphones com WhatsApp e CRM. As prévias usam `srcset` de 384, 768 e 1254px. As imagens abertas são independentes: versões verticais de 320 e 640px para desktop, quadradas de 384 e 768px para tablet e horizontais de 384 e 768px para celular.
-
-Com JavaScript ativo, a pilha e os benefícios verificam se o texto cabe nas faces após redimensionamento, mudança do tamanho da fonte e carregamento das fontes. Quando faltar espaço, a pilha apresenta os canais sem sobreposição e os benefícios adotam altura natural em uma lista estática. Os controles de expansão ficam inativos ou ocultos; o foco retorna a um destino visível antes dessa mudança. A apresentação interativa retorna quando o texto volta a caber. A pilha não aplica redução de escala ao pressionar teclas. A jornada guarda o destino solicitado durante a rolagem, preservando cliques rápidos e reversões; rolagem manual e redimensionamento liberam esse destino.
-
-A terceira seção usa **Interactive Process Rail**, baseado no modelo [Process Timeline, de Zoya Aqib](https://process-timeline-scrolling-animation.webflow.io/), solicitado em 04/11/2026. A coluna esquerda fixa uma imagem quadrada de 30vw (máximo de 432px), enquanto as três soluções percorrem a coluna direita. O ritmo usa `--rail-step-height: 80svh` como altura mínima das etapas seguintes. Em tablet e desktop, a primeira etapa e a área fixa da imagem têm uma altura de abertura mais compacta, limitada pela altura da etapa e pelo tamanho da imagem; a coluna visual permanece centralizada na tela. O título mantém 16px de intervalo antes do trilho, aproximando a primeira solução sem alterar as colunas. A moldura gira 45° por solução; a imagem gira no sentido inverso e usa escala 1,5 para cobrir a máscara. A troca de imagens acompanha o scroll com opacidade. O trilho usa Clear Sky e marcador Lime. A numeração, a moldura quadrada e o texto decorativo no celular são preservados da referência. Abaixo de 768px, o trilho desaparece e a altura mínima passa a 60svh; textos maiores expandem cada etapa naturalmente. Sem JavaScript ou com movimento reduzido, cada solução exibe sua imagem junto ao texto, em leitura estática, com espaçamento definido por `--section-content-gap`. As âncoras `centralize`, `discover` e `act` permanecem disponíveis.
-
-O ícone do menu interpola somente transforms, mantendo sua posição de layout fixa. A primeira linha do cabeçalho mantém sua altura ao abrir a navegação. O vídeo não tem autoplay no HTML nem pré-carregamento obrigatório: o JavaScript respeita a preferência de movimento antes de iniciar a reprodução automática, permitindo reprodução manual explícita mesmo com movimento reduzido. A reprodução é pausada fora da tela ou em aba oculta, preservando a pausa manual. Seus controles têm largura mínima estável e rótulos sincronizados ao estado real; em erro de mídia, o botão fica desabilitado e o poster permanece disponível.
-
-As ilustrações da seção de soluções foram substituídas em 05/11/2026 por adaptações ImageGen das três artes neon fornecidas pelo usuário: diorama de Google e loja, marketing com megafone e redes sociais, e WhatsApp conectado ao CRM. Os elementos importantes ficam concentrados no centro, com margens preparadas para a moldura giratória. O fundo Navy das novas artes preenche as quatro bordas; a moldura gira e a ilustração conserva sua orientação por contrarrotação. Cada serviço tem versões WebP de 384, 768 e 1254px com o sufixo `-imagen-square-`; `srcset` e `sizes` consideram a ampliação de 1,5× da animação, o tamanho da tela e a densidade de pixels. No modo estático, a seleção acompanha a largura das colunas. Os originais e os [prompts finais de geração](services-imagen-square.md) foram preservados.
-
-O hero usa os vídeos fornecidos em `design/originals/hero/hero_desktop.mp4` (1920 × 1080) e `hero_cel.mp4` (1080 × 1920), ambos com 8 segundos. As cópias publicadas ficam em `app/static/videos/hero/{desktop,mobile}.mp4`, sem alterar os originais. O canvas Navy ocupa toda a seção. Acima de 1020px, vídeo e poster conservam a proporção 16:9, centralização vertical e alinhamento à direita; um recuo esquerdo de 10vw, limitado entre 80 e 192px, afasta a ilustração da copy. Máscaras suavizam apenas as bordas do quadro (96px à esquerda e 24px no topo e na base), sem sobreposição escura sobre os elementos da arte. No celular, vídeo e poster preenchem toda a seção com `object-fit: cover`, sem máscara. A altura mínima considera a viewport abaixo do header e permite crescimento natural com texto ampliado. Até 1020px, a versão vertical preserva também uma altura mínima proporcional à largura, limitada a 720px para esse cálculo. O enquadramento mobile usa o centro inferior.
-
-No celular abaixo de 640px, o título começa a 4px do topo do hero; título e subtítulo têm 8px de intervalo, e os CTAs começam 12px após o subtítulo. Um scrim Navy acompanha a altura natural de todo o conteúdo, inclusive com fonte ampliada, e termina em um fade de 32px; não há card envolvendo a abertura. No desktop, a separação da copy vem do reenquadramento da mídia, sem scrim horizontal. O `<picture>` de fundo seleciona o poster correto mesmo sem JavaScript; esses JPGs são extraídos dos vídeos por `scripts/media/prepare-hero-media.mjs` e ficam em `app/static/images/hero/`. A animação mantém os controles, pausa fora da tela, tratamento de erro e preferência de movimento já existentes. As âncoras, textos e destinos configuráveis são preservados. A seção de depoimentos foi removida a pedido do usuário; o processo é seguido pelo FAQ e pelo contato final. Movimento de entrada dura 220ms e é removido com `prefers-reduced-motion`.
-
-Seis aberturas de seção usam **Subtle Radial Glow Section Transition**, solicitado pelo usuário em 04/11/2026. Após a revisão de intensidade, o glow radial Acid Lime tem pico de 9% sobre o Navy contínuo e altura de 128px, com brilho mais suave e menos disperso; a linha horizontal mantém 1px, com 44% de opacidade no centro, um ponto luminoso de 6px e traço vertical de 1px abaixo da abertura. A entrada do hero logo abaixo do cabeçalho e a passagem entre o FAQ e o contato final não recebem a decoração, conforme solicitado. O título e o subtítulo de “Como trabalhamos.” são centralizados, com a medida de 65ch do parágrafo preservada. O componente decorativo compartilhado é `components/section-transition.html`; seus gradientes e pseudo-elementos usam os tokens existentes, sem filtros de blur, sombras, cartões ou novas dependências. O observador de entrada existente revela apenas a opacidade da decoração em 220ms, uma vez por seção. A leitura, as fontes e os componentes permanecem iguais. Teclado, movimento reduzido e ausência de JavaScript apresentam o detalhe imediatamente; mudar a preferência de movimento não deixa elementos ocultos nem reinicia a entrada.
-
-### FAQ
-
-A seção `before-start`, logo após “Como trabalhamos.”, conserva o título, o subtítulo e o divisor aprovados. Título, subtítulo e CTA ficam centralizados acima das perguntas. Acima de 1020px, os seis cards se dividem em duas colunas iguais: três à esquerda e três à direita. Até esse breakpoint, as colunas são empilhadas, mantendo a ordem de leitura. As duas colunas pertencem ao mesmo accordion, com apenas uma resposta aberta no conjunto. As superfícies usam `--web-surface-1`, bordas `--web-border`, raio `--radius-card` e ícones SVG Clear Sky de mais/menos. O apoio reutiliza o botão secundário e leva ao contato existente, sem criar outro destino de WhatsApp.
-
-O componente `components/faq-item.html` usa H3, botão nativo com `aria-expanded`/`aria-controls` e resposta identificada por `aria-labelledby`. Com JavaScript ativo, todas as perguntas começam fechadas; ao abrir uma resposta, as demais são recolhidas. Enter/Espaço alternam o estado, Tab percorre os controles e setas/Home/End movem o foco. Respostas fechadas ficam fora da leitura assistiva e da ordem de foco. A abertura e o fechamento interpolam as linhas de grid em 220ms e a opacidade em 160ms, usando os tokens existentes; teclado e movimento reduzido são imediatos. As transições podem ser interrompidas sem ocultar uma resposta reaberta. Sem JavaScript, todas as respostas permanecem legíveis em apresentação estática.
-
-As seis perguntas e respostas fornecidas pelo usuário estão em `docs/content/faq.md` e em `sections/faq.html`, com redação e ordem preservadas integralmente. O título e o subtítulo aprovados permanecem iguais. Nenhum dado estruturado de FAQ foi acrescentado. A verificação específica é `node tests/browser/faq.mjs`, que também compara os textos publicados com o arquivo de origem.
-
-## Marca disponível
-
-Em 03/11/2026, o usuário forneceu a assinatura **Ativos Negócios Locais** em `design/design_system_ativos/logo_negocios_locais.png`, que passa a ser a referência da marca nesta landing. A versão para fundo escuro foi preparada com ImageGen, preservando símbolo, lettering, cores e o descritor. A opção opaca foi escolhida por manter bordas e letras limpas; o original fornecido não foi alterado.
-
-Em 04/11/2026, o usuário substituiu a assinatura do cabeçalho e do rodapé pela versão metálica fornecida em `design/design_system_ativos/Logo metálico ATIVOS Negócios Locais.png`. A exportação `app/static/images/brand/ativos-negocios-locais-metalico.webp` tem 960 × 255px, aproximadamente 79KB e transparência real preparada com ImageGen. As larguras de apresentação continuam em 240px no cabeçalho desktop, 208px no celular e 224px no rodapé desktop, respeitando a proporção da imagem. O fundo transparente dispensa a mistura de luminosidade anterior e preserva os tons metálicos. O [registro da preparação](metallic-logo.md) inclui a origem, o prompt final e o comando de exportação. Os ícones existentes de 32px e 180px permanecem independentes da assinatura horizontal.
-
-A matriz metálica transparente fica em `design/originals/brand/ativos-negocios-locais-metalico-transparent.png`; a exportação para web recorta as margens e reduz o tamanho, preservando o canal alpha. Os ícones de 16px, 32px e 180px usam o símbolo dessa mesma assinatura.
-
-O favicon da aba também usa o símbolo metálico, com PNGs de 16 × 16px e 32 × 32px sobre Midnight Navy. O ícone de toque usa a mesma composição em 180 × 180px. Os arquivos publicados têm o prefixo `ativos-negocios-locais-metalico-`, com nomes próprios e versionamento por `static_url` para atualizar o cache. A exportação é reproduzida pelo mesmo script da assinatura horizontal.
+Os tempos permanecem em 100ms para pressão, 160ms para estados e 220ms para entradas. Teclado e `prefers-reduced-motion` removem transições dispensáveis. Sem JavaScript, o conteúdo permanece legível.
 
 ## Verificação
 
-- Integração HTTP: `python -m unittest discover -s tests/integration -v`.
-- Navegador em 1440, 768, 390 e 320px: `node tests/browser/landing.mjs`.
-- Estados reais de mouse, toque e teclado, foco, árvore de acessibilidade e custo de layout: `node tests/browser/interactions.mjs`.
-- Pilha de cards, abertura por mouse/toque/teclado, recolhimento e movimento reduzido: `node tests/browser/card-stack.mjs`.
-- Ampliação de texto a 200%, leitura sem cortes e recuperação das interações: `node tests/browser/typography-reflow.mjs`.
-- Jornada horizontal, contenção da página, navegação, pausa e leitura sem JavaScript ou com movimento reduzido: `node tests/browser/horizontal-journey.mjs`.
-- Expanding Flow dos quatro benefícios, teclado, seleção independente e leitura responsiva: `node tests/browser/benefits-flow.mjs`.
-- Trilho de soluções, imagens sincronizadas ao scroll, rotação, links diretos, resize e fallback estático: `node tests/browser/process-rail.mjs`.
-- Inspeção visual em 1440, 768 e 390px com o inspetor local da skill `design-taste-frontend`.
-- Evidências da migração em `reports/qa/design-system-before/`, `reports/qa/design-system-after/` e `reports/qa/design-system-browser/` (arquivos locais, não versionados).
-
-As regras de negócio, o conteúdo comercial e a configuração de contatos continuam sendo definidos pela aplicação. Esta migração não cria provas sociais, resultados, números ou condições comerciais.
+Os comandos estão no [README](../../README.md). A migração v0.5 registra inspeção em 1440, 768 e 390px e as nove suítes de navegador em `reports/qa/design-system-v05/`. As suítes também cobrem 320px, texto a 200%, ausência de JavaScript, movimento reduzido, teclado, toque, contato e carregamento de mídia. Testes HTTP e de build verificam assets, licenças, exportação estática e limites de publicação.

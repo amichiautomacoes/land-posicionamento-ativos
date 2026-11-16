@@ -2,10 +2,9 @@
 
 ## Fontes distribuídas
 
-Space Grotesk e Inter são servidas localmente em WOFF2, com subsets Latin e Latin Extended. Os arquivos foram obtidos no Google Fonts. As licenças SIL Open Font License 1.1 acompanham as respectivas famílias:
+Inter é servida localmente em WOFF2 variável (pesos 100–900), com subsets Latin e Latin Extended. Os arquivos foram obtidos no Google Fonts. A licença SIL Open Font License 1.1 acompanha a família:
 
 - `app/static/fonts/inter/OFL.txt`.
-- `app/static/fonts/space-grotesk/OFL.txt`.
 
 ## Marca e imagens atuais
 

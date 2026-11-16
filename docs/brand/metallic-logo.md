@@ -8,7 +8,7 @@ Aplicada em 04/11/2026 a pedido do usuário.
 - Arquivo publicado: `app/static/images/brand/ativos-negocios-locais-metalico.webp` (960 × 255px, 81.000 bytes).
 - Preparação: recorte de margens quase transparentes, com margem de segurança, e redução proporcional por Canvas. O alpha é preservado na codificação WebP.
 - Uso: cabeçalho e rodapé, com os tamanhos de apresentação existentes e sem mistura de luminosidade.
-- Ícones do navegador: `ativos-negocios-locais-metalico-favicon-16.png` e `ativos-negocios-locais-metalico-favicon-32.png`, em `app/static/images/brand/`. Usam apenas o símbolo metálico sobre Midnight Navy para manter contraste nas abas claras e escuras.
+- Ícones do navegador: `ativos-negocios-locais-metalico-favicon-16.png` e `ativos-negocios-locais-metalico-favicon-32.png`, em `app/static/images/brand/`. Usam apenas o símbolo metálico sobre o fundo `#0C0E12` do sistema v0.5 para manter contraste nas abas claras e escuras.
 - Ícone de toque: `app/static/images/brand/ativos-negocios-locais-metalico-touch-180.png`, derivado do mesmo símbolo em 180 × 180px. Os três ícones usam nomes novos e a versão de arquivo já aplicada por `static_url`, para atualizar o cache.
 
 Para repetir a exportação com a matriz disponível:

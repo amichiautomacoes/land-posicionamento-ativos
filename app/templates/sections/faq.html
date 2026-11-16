@@ -3,10 +3,10 @@
       <div class="faq-layout">
         <div class="before-start-intro">
           <div data-section-opening>
-            <h2 id="before-start-title" data-reveal>Ainda tem dúvidas? A gente esclarece.</h2>
+            <h2 id="before-start-title" data-reveal>Ainda tem dúvidas? <span class="text-accent">A gente esclarece.</span></h2>
             <p class="faq-description" data-reveal>Saiba como funcionam nossas soluções, a implantação e o acompanhamento da sua empresa.</p>
           </div>
-          {{ contact_button('button button-outline faq-support', 'Tirar minhas dúvidas no WhatsApp') }}
+          {{ contact_button('button button-solid button-whatsapp faq-support', 'Tirar minhas dúvidas no WhatsApp') }}
         </div>
         {% from 'components/faq-item.html' import faq_item %}
         {# Copy fornecida pelo usuário, preservada em docs/content/faq.md. #}

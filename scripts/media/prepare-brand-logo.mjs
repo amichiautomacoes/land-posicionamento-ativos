@@ -7,7 +7,7 @@ import { resolve } from 'node:path';
 const master = projectPath('design/originals/brand/ativos-negocios-locais-metalico-transparent.png');
 const destination = projectPath('app/static/images/brand/ativos-negocios-locais-metalico.webp');
 const iconDirectory = projectPath('app/static/images/brand');
-const background = readFileSync(projectPath('app/static/css/tokens.css'), 'utf8').match(/--brand-background:\s*(#[0-9a-f]+)/i)?.[1];
+const background = readFileSync(projectPath('app/static/css/tokens.css'), 'utf8').match(/--color-background:\s*(#[0-9a-f]+)/i)?.[1];
 if (!background) throw new Error('Brand background token unavailable');
 const output = projectPath('reports/qa/metallic-logo');
 mkdirSync(output, { recursive: true });

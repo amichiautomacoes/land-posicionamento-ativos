@@ -1,45 +1,24 @@
-/* Existing content and composition, expressed through the current ATIVOS system. */
-/* Section transitions explicitly requested by the user: diffuse Lime light,
-   a hairline and a small central node; the Navy canvas and content stay intact. */
+/* ATIVOS base.md v0.5: neutral surfaces, Inter 900 and text-only Lime. */
 .section-transition-host { position: relative; }
-
 .section-transition {
   position: absolute; inset-block-start: 0; inset-inline: 0; block-size: 1px;
-  isolation: isolate; pointer-events: none;
-  background: linear-gradient(90deg, transparent, color-mix(in srgb, var(--brand-accent) 44%, transparent) 50%, transparent);
+  pointer-events: none; background: var(--web-border);
 }
-
-.section-transition::before {
-  content: ''; position: absolute; z-index: -1;
-  inset-block-start: calc(-1 * var(--space-16)); inset-inline-start: 50%;
-  inline-size: min(100%, calc(var(--space-24) * 12)); block-size: calc(var(--space-16) * 2);
-  transform: translateX(-50%);
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--brand-accent) 9%, transparent), color-mix(in srgb, var(--brand-accent) 3%, transparent) 45%, transparent 78%);
-}
-
-.section-transition::after {
-  content: ''; position: absolute;
-  inset-block-start: calc((1px - var(--space-3)) / 2); inset-inline-start: calc(50% - var(--space-3) / 2);
-  inline-size: var(--space-3); block-size: var(--space-3);
-  background: radial-gradient(circle, var(--brand-accent) 0 calc(var(--space-3) / 4), color-mix(in srgb, var(--brand-accent) 26%, transparent) calc(var(--space-3) / 3), transparent 72%);
-}
-
 [data-section-opening] { position: relative; }
-
 [data-section-opening]::after {
   content: ''; position: absolute; pointer-events: none;
-  inset-block-start: calc(100% + var(--space-1)); inset-inline-start: 50%;
-  inline-size: 1px; block-size: var(--space-3);
-  background: linear-gradient(180deg, color-mix(in srgb, var(--brand-accent) 42%, transparent), transparent);
+  inset-block-start: calc(100% + var(--space-1)); inset-inline-start: calc(50% - .5px);
+  inline-size: 1px; block-size: var(--space-1); background: var(--web-border);
 }
 
 .hero {
+  --hero-content-width: min(var(--web-container-max), calc(100% - var(--page-margin) * 2));
   position: relative; isolation: isolate; overflow: hidden;
   background: var(--web-bg);
 }
 
 .hero--video {
-  --hero-height: max(clamp(560px, 52vw, 760px), calc(100svh - var(--space-24)));
+  --hero-height: clamp(560px, 56.25vw, 760px);
   min-height: var(--hero-height);
 }
 
@@ -58,42 +37,43 @@
 .hero-video[data-video-ready] { visibility: visible; }
 
 @media (min-width: 1021px) {
-  .hero--video { --hero-media-inset: clamp(var(--space-20), 10vw, calc(var(--space-24) * 2)); }
-  .hero-video, .hero-poster {
-    inset-block: 50% auto; inset-inline: var(--hero-media-inset) 0;
-    width: calc(100% - var(--hero-media-inset)); height: auto; aspect-ratio: 16 / 9;
-    transform: translateY(-50%);
-    /* Blend only the frame's edges; keep the illustration's colors intact. */
-    mask-image: linear-gradient(90deg, transparent, #000 var(--space-24)), linear-gradient(180deg, transparent, #000 var(--space-6), #000 calc(100% - var(--space-6)), transparent);
-    mask-composite: intersect;
-  }
+  /* Use the video's empty left field instead of constraining the copy to the
+     site's 1200px container and darkening the illustration to compensate. */
+  .hero { --hero-content-width: calc(100% - var(--page-margin) * 2); }
+  /* Both the video and its fallback cover every edge, even when copy grows. */
+  .hero-video, .hero-poster img { object-position: right center; }
 }
 
 .hero-content {
   display: flex; align-items: center; min-height: var(--hero-height);
-  width: min(var(--web-container-max), calc(100% - var(--page-margin) * 2));
-  margin-inline: auto; padding-block: var(--space-12);
+  width: var(--hero-content-width);
+  margin-inline: auto; padding-block: var(--space-5);
 }
 
-.hero-copy { width: 48%; }
+.hero-copy { width: 52%; }
 
-.hero h1 { max-width: 12em; }
+.hero h1 { max-width: 13em; }
+
+@media (min-width: 1021px) {
+  .hero-copy { width: 46%; }
+  .hero h1 { max-width: none; font-size: clamp(2.5rem, 3.6vw, 3.5rem); }
+}
 
 .hero-subtitle {
   max-width: 48ch; margin-top: var(--hero-heading-copy-gap);
   color: var(--web-text-muted); font-size: var(--text-lead); line-height: var(--leading-text);
 }
 
-.hero-subtitle strong { font-weight: 400; }
+.hero-subtitle strong { font-weight: var(--weight-body); }
 
-.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-4) var(--space-6); margin-top: var(--space-8); }
+.hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: var(--space-2) var(--space-3); margin-top: var(--space-4); }
 
 .hero-video-toggle {
-  position: absolute; right: max(var(--page-margin), calc((100% - var(--web-container-max)) / 2)); bottom: var(--space-6);
-  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-2);
-  min-height: var(--control-height); padding: var(--space-2) var(--space-4);
+  position: absolute; right: max(var(--page-margin), calc((100% - var(--web-container-max)) / 2)); bottom: var(--space-3);
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--space-1);
+  min-height: var(--control-height); padding: var(--space-1) var(--space-2);
   min-inline-size: 11rem;
-  border-radius: var(--radius-control); background: var(--web-bg); color: var(--web-text);
+  border: 1px solid var(--web-action-outline); border-radius: var(--radius-control); background: var(--web-bg); color: var(--web-action-outline);
   font-size: var(--text-small); line-height: var(--leading-control);
 }
 
@@ -108,7 +88,7 @@
 
 .advantage-copy > p { max-width: 65ch; color: var(--web-text-muted); font-size: var(--text-lead); line-height: var(--leading-text); }
 
-.advantage .accent-link { color: var(--brand-accent); font-weight: 600; }
+.advantage .accent-link { color: var(--web-link); font-weight: 600; }
 
 .platform { padding-block: var(--section-space); }
 
@@ -132,11 +112,11 @@
 
 .strategy-intro > p { max-width: 65ch; margin: var(--heading-copy-gap) auto 0; color: var(--web-text-muted); font-size: var(--text-lead); }
 
-.strategy-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-6); margin: var(--section-content-gap) 0 0; padding: 0; list-style: none; }
+.strategy-steps { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--space-3); margin: var(--section-content-gap) 0 0; padding: 0; list-style: none; }
 
-.strategy-step { min-width: 0; padding: var(--space-6); border-radius: var(--radius-card); background: var(--web-surface-1); }
+.strategy-step { min-width: 0; padding: var(--space-3); border: 1px solid var(--web-border); border-radius: var(--radius-card); background: var(--web-surface-1); }
 
-.strategy-step-number { display: block; margin-bottom: var(--space-4); color: var(--brand-secondary); font-family: var(--font-display); font-size: var(--text-small); font-weight: 500; line-height: var(--leading-caption); letter-spacing: var(--tracking-text); font-variant-numeric: tabular-nums; }
+.strategy-step-number { display: block; margin-bottom: var(--space-2); color: var(--brand-accent); font-family: var(--font-display); font-size: var(--text-index); font-weight: var(--weight-title); line-height: 1; letter-spacing: var(--tracking-heading); font-variant-numeric: tabular-nums; }
 
 .strategy-step h3 { font-size: var(--text-h3); overflow-wrap: anywhere; }
 
@@ -144,11 +124,11 @@
 
 .cta { padding-block: var(--section-space); }
 
-.cta-panel { padding: var(--space-10) var(--space-8); border-radius: var(--radius-feature); background: var(--web-surface-light); color: var(--web-text-on-light); text-align: center; color-scheme: light; }
+.cta-panel { padding: var(--space-6) var(--space-4); border: 1px solid var(--web-border); border-radius: var(--radius-feature); background: var(--web-surface-1); color: var(--web-text); text-align: center; }
 
 .cta-panel h2 { max-width: var(--section-heading-measure); margin-inline: auto; }
 
-.cta-panel > p { max-width: 60ch; margin: var(--heading-copy-gap) auto var(--space-8); font-size: var(--text-lead); }
+.cta-panel > p { max-width: 60ch; margin: var(--heading-copy-gap) auto var(--space-4); color: var(--web-text-muted); font-size: var(--text-lead); }
 
 .cta-panel :focus-visible { outline-color: var(--web-focus-on-light); }
 
@@ -174,16 +154,16 @@
 }
 
 @media (max-width: 1020px) {
-  .hero--video { --hero-height: max(calc(100svh - var(--space-20)), calc(min(100vw, 720px) * 16 / 9)); }
+  .hero--video { --hero-height: max(calc(100svh - 80px), calc(min(100vw, 720px) * 16 / 9)); }
   .hero-video, .hero-poster img { object-position: center bottom; }
-  .hero-content { align-items: flex-start; padding-block: var(--space-3) var(--space-16); }
-  .hero-copy { position: relative; isolation: isolate; width: min(100%, 650px); }
+  .hero-content { align-items: flex-start; padding-block: var(--space-2) var(--space-6); }
+  .hero-copy { position: relative; isolation: isolate; width: min(100%, 704px); }
   /* Follow the copy's natural height, including enlarged text, without a panel. */
   .hero-copy::before {
     content: ''; position: absolute; z-index: -1; pointer-events: none;
-    inset-block: calc(-1 * var(--space-3)) calc(-1 * var(--space-8));
+    inset-block: calc(-1 * var(--space-2)) calc(-1 * var(--space-4));
     inset-inline-start: calc(-1 * var(--page-margin)); inline-size: 100vw;
-    background: linear-gradient(180deg, var(--web-hero-scrim), var(--web-hero-scrim-soft) calc(100% - var(--space-8)), var(--web-hero-scrim-clear));
+    background: linear-gradient(180deg, var(--web-hero-scrim), var(--web-hero-scrim-soft) calc(100% - var(--space-4)), var(--web-hero-scrim-clear)); /* taste-skill-ignore: neutral scrim keeps overlaid copy legible */
   }
 }
 
@@ -192,18 +172,18 @@
   /* Across the 8s video, the artwork reaches y=382 in the 1080x1920 frame.
      Reserve its lower 82% (including glow), the copy fade and video controls. */
   .hero-video, .hero-poster {
-    inset: auto 0 var(--space-16); height: auto; aspect-ratio: 9 / 16;
+    inset: auto 0 var(--space-6); height: auto; aspect-ratio: 9 / 16;
   }
   .hero-content {
     padding-top: var(--space-1);
-    padding-bottom: calc(100vw * 16 / 9 * .82 + var(--space-24));
+    padding-bottom: calc(100vw * 16 / 9 * .82 + var(--space-7));
   }
-  .hero h1 { font-size: clamp(2rem, 8.2vw, 2.5rem); }
-  .hero-actions { flex-direction: column; align-items: stretch; gap: var(--space-2); margin-top: var(--space-6); }
+  .hero h1 { font-size: var(--text-display); }
+  .hero-actions { flex-direction: column; align-items: stretch; gap: var(--space-1); margin-top: var(--space-3); }
   .hero-actions .text-link { justify-content: center; }
-  .hero-video-toggle { right: var(--space-4); bottom: var(--space-4); }
-  .advantage { grid-template-columns: minmax(0, 1fr); gap: var(--space-6); }
-  .strategy-steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-4); }
-  .strategy-step-number { margin-bottom: var(--space-4); }
-  .cta-panel { padding: var(--space-8) var(--space-6); }
+  .hero-video-toggle { right: var(--space-2); bottom: var(--space-2); }
+  .advantage { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
+  .strategy-steps { grid-template-columns: minmax(0, 1fr); gap: var(--space-2); }
+  .strategy-step-number { margin-bottom: var(--space-2); }
+  .cta-panel { padding: var(--space-4) var(--space-3); }
 }

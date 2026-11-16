@@ -1,0 +1,262 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-16T19:37:05Z",
+  "title": "Design System: ATIVOS Tecnologia",
+  "extensions": {
+    "colorMeta": {
+      "background": {
+        "role": "neutral",
+        "displayName": "Grafite profundo",
+        "tonalRamp": [
+          "oklch(15% .01 264)",
+          "oklch(26% .015 264)",
+          "oklch(37% .02 264)",
+          "oklch(49% .02 264)",
+          "oklch(60% .02 264)",
+          "oklch(72% .015 264)",
+          "oklch(84% .01 264)",
+          "oklch(95% .005 264)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Grafite de superfície",
+        "tonalRamp": [
+          "oklch(15% .01 265)",
+          "oklch(26% .015 265)",
+          "oklch(37% .02 265)",
+          "oklch(49% .02 265)",
+          "oklch(60% .02 265)",
+          "oklch(72% .015 265)",
+          "oklch(84% .01 265)",
+          "oklch(95% .005 265)"
+        ]
+      },
+      "border": {
+        "role": "neutral",
+        "displayName": "Contorno azul-grafite",
+        "tonalRamp": [
+          "oklch(15% .015 255)",
+          "oklch(26% .025 255)",
+          "oklch(37% .04 255)",
+          "oklch(49% .04 255)",
+          "oklch(60% .04 255)",
+          "oklch(72% .03 255)",
+          "oklch(84% .02 255)",
+          "oklch(95% .005 255)"
+        ]
+      },
+      "text-primary": {
+        "role": "neutral",
+        "displayName": "Branco principal",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(26% 0 0)",
+          "oklch(37% 0 0)",
+          "oklch(49% 0 0)",
+          "oklch(60% 0 0)",
+          "oklch(72% 0 0)",
+          "oklch(84% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "text-support": {
+        "role": "neutral",
+        "displayName": "Cinza de apoio",
+        "tonalRamp": [
+          "oklch(15% .005 260)",
+          "oklch(26% .01 260)",
+          "oklch(37% .02 260)",
+          "oklch(49% .02 260)",
+          "oklch(60% .02 260)",
+          "oklch(72% .02 260)",
+          "oklch(84% .01 260)",
+          "oklch(95% .005 260)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Verde-lima textual",
+        "tonalRamp": [
+          "oklch(15% .03 123)",
+          "oklch(26% .06 123)",
+          "oklch(37% .09 123)",
+          "oklch(49% .12 123)",
+          "oklch(60% .16 123)",
+          "oklch(72% .19 123)",
+          "oklch(84% .2 123)",
+          "oklch(95% .06 123)"
+        ]
+      },
+      "action": {
+        "role": "primary",
+        "displayName": "Deep Cyan - acoes"
+      },
+      "action-support": {
+        "role": "secondary",
+        "displayName": "Clear Sky - controles secundarios"
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Hero",
+        "purpose": "Título principal da página."
+      },
+      "headline": {
+        "displayName": "Título de seção",
+        "purpose": "Hierarquia principal das seções."
+      },
+      "title": {
+        "displayName": "Nome",
+        "purpose": "Nomes de cards; soluções têm escala fluida própria no CSS."
+      },
+      "body": {
+        "displayName": "Corpo",
+        "purpose": "Descrições e leitura contínua."
+      },
+      "label": {
+        "displayName": "Controle",
+        "purpose": "Botões e links de navegação; apoio usa peso 500."
+      }
+    },
+    "shadows": [],
+    "motion": [
+      {
+        "name": "motion-press",
+        "value": "100ms",
+        "purpose": "Pressão de controles com ponteiro."
+      },
+      {
+        "name": "motion-fast",
+        "value": "160ms",
+        "purpose": "Estados, opacidade e ícones."
+      },
+      {
+        "name": "motion-enter",
+        "value": "220ms",
+        "purpose": "Entradas e expansão de conteúdo."
+      },
+      {
+        "name": "ease-out",
+        "value": "cubic-bezier(.23, 1, .32, 1)",
+        "purpose": "Curva compartilhada. Teclado e movimento reduzido removem transições dispensáveis."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile-end",
+        "value": "639px"
+      },
+      {
+        "name": "margin-tablet",
+        "value": "640px"
+      },
+      {
+        "name": "rail-tablet",
+        "value": "768px"
+      },
+      {
+        "name": "rail-wide",
+        "value": "992px"
+      },
+      {
+        "name": "navigation-faq-compact-end",
+        "value": "1020px"
+      },
+      {
+        "name": "hero-journey-desktop",
+        "value": "1021px"
+      },
+      {
+        "name": "margin-desktop",
+        "value": "1024px"
+      },
+      {
+        "name": "stack-process-compact-end",
+        "value": "1100px"
+      },
+      {
+        "name": "benefits-static-end",
+        "value": "1199px"
+      },
+      {
+        "name": "benefits-expansion",
+        "value": "1200px"
+      },
+      {
+        "name": "margin-wide",
+        "value": "1440px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botão principal",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Botao Deep Cyan com texto branco e variacoes de azul nos estados.",
+      "html": "<button class=\"ds-button-primary\" type=\"button\">Quero atrair mais clientes</button>",
+      "css": ".ds-button-primary{display:inline-flex;align-items:center;justify-content:center;min-height:var(--control-height-large);padding:var(--space-2) var(--space-3);border:1px solid transparent;border-radius:var(--radius-control);background:var(--web-action);color:var(--web-action-text);font:var(--weight-control) var(--text-small)/var(--leading-control) var(--font-body);text-align:center;cursor:pointer;transition:background var(--motion-fast) var(--ease-out),transform var(--motion-fast) var(--ease-out)}.ds-button-primary:hover{background:var(--web-action-hover)}.ds-button-primary:active{background:var(--web-action-active);transform:scale(.97);transition-duration:var(--motion-press)}.ds-button-primary:focus-visible{outline:2px solid var(--web-focus);outline-offset:4px;transition:none}.ds-button-primary:focus-visible:active{transform:none}.ds-button-primary:disabled{background:var(--web-disabled-bg);color:var(--web-disabled-text);transform:none;cursor:default}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}}"
+    },
+    {
+      "name": "Botão secundário",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Acao secundaria com texto e contorno Clear Sky.",
+      "html": "<button class=\"ds-button-outline\" type=\"button\">Fale com a gente</button>",
+      "css": ".ds-button-outline{display:inline-flex;align-items:center;justify-content:center;min-height:var(--control-height-large);padding:var(--space-2) var(--space-3);border:1px solid var(--web-action-outline);border-radius:var(--radius-control);background:transparent;color:var(--web-action-outline);font:var(--weight-control) var(--text-small)/var(--leading-control) var(--font-body);text-align:center;cursor:pointer;transition:background var(--motion-fast) var(--ease-out),transform var(--motion-fast) var(--ease-out)}.ds-button-outline:hover{background:var(--web-action-subtle-hover)}.ds-button-outline:active{background:var(--web-action-subtle-active);transform:scale(.97);transition-duration:var(--motion-press)}.ds-button-outline:focus-visible{outline:2px solid var(--web-focus);outline-offset:4px;transition:none}.ds-button-outline:focus-visible:active{transform:none}.ds-button-outline:disabled{background:var(--web-disabled-bg);color:var(--web-disabled-text);border-color:transparent;transform:none;cursor:default}@media(prefers-reduced-motion:reduce){.ds-button-outline{transition:none}}"
+    },
+    {
+      "name": "Links de navegação",
+      "kind": "nav",
+      "description": "Recorte dos links nativos; a aplicação mantém o menu responsivo e sua gestão de foco.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Exemplo de navegação\"><a href=\"#platform\">Soluções</a><a href=\"#capabilities-copy\">Benefícios</a><a href=\"#diagnostico\">Contato</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;flex-wrap:wrap;gap:var(--space-4)}.ds-nav a{display:inline-flex;align-items:center;min-height:var(--control-height);color:var(--web-text-muted);font:var(--weight-control) var(--text-small)/var(--leading-control) var(--font-body);text-decoration:none;transition:opacity var(--motion-fast) var(--ease-out)}.ds-nav a:hover{color:var(--web-text)}.ds-nav a:active{opacity:.8}.ds-nav a:focus-visible{outline:2px solid var(--web-focus);outline-offset:4px;transition:none}@media(max-width:639px){.ds-nav{align-items:stretch;flex-direction:column;gap:0}.ds-nav a{font-size:var(--text-body)}}@media(prefers-reduced-motion:reduce){.ds-nav a{transition:none}}"
+    },
+    {
+      "name": "Card de processo",
+      "kind": "card",
+      "refersTo": "process-card",
+      "description": "Card estático de etapa: índice, nome e descrição. Não possui estados de ação.",
+      "html": "<article class=\"ds-process-card\"><span class=\"ds-process-index\" aria-hidden=\"true\">01.</span><h3>Diagnóstico</h3><p>Conhecemos sua empresa, seus desafios e a forma como atende seus clientes.</p></article>",
+      "css": ".ds-process-card{padding:var(--space-3);border:1px solid var(--web-border);border-radius:var(--radius-card);background:var(--web-surface-1);color:var(--web-text);max-width:24rem}.ds-process-index{display:block;margin-bottom:var(--space-2);color:var(--brand-accent);font:var(--weight-title) var(--text-index)/1 var(--font-display);letter-spacing:var(--tracking-heading);font-variant-numeric:tabular-nums}.ds-process-card h3{margin:0;font:var(--weight-name) var(--text-h3)/var(--leading-heading) var(--font-display);letter-spacing:var(--tracking-heading);text-wrap:balance}.ds-process-card p{margin:var(--card-heading-copy-gap) 0 0;color:var(--web-text-muted);font:var(--weight-body) var(--text-body)/var(--leading-text) var(--font-body);text-wrap:pretty}"
+    },
+    {
+      "name": "Pergunta do FAQ",
+      "kind": "button",
+      "refersTo": "faq-trigger",
+      "description": "Amostra visual do botão de pergunta. O controlador do site gerencia resposta, ARIA e exclusividade.",
+      "html": "<div class=\"ds-faq-item\"><button class=\"ds-faq-trigger\" type=\"button\" aria-expanded=\"false\"><span>Como funciona?</span><svg viewBox=\"0 0 20 20\" width=\"24\" height=\"24\" aria-hidden=\"true\"><path d=\"M4 10h12M10 4v12\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.5\" stroke-linecap=\"round\"/></svg></button></div>",
+      "css": ".ds-faq-item{border:1px solid var(--web-border);border-radius:var(--radius-card);background:var(--web-surface-1);max-width:35rem}.ds-faq-trigger{display:flex;align-items:center;justify-content:space-between;gap:var(--space-3);width:100%;min-height:calc(var(--control-height-large) + var(--space-3));padding:var(--space-3);border:0;border-radius:var(--radius-card);background:transparent;color:var(--web-text);font:var(--weight-name) var(--text-body)/var(--leading-caption) var(--font-body);text-align:left;cursor:pointer;transition:background var(--motion-fast) var(--ease-out)}.ds-faq-trigger svg{flex-shrink:0;color:var(--brand-secondary)}.ds-faq-trigger:hover,.ds-faq-trigger:active{background:var(--web-surface-2)}.ds-faq-trigger:focus-visible{outline:2px solid var(--web-focus);outline-offset:4px;transition:none}.ds-faq-trigger:disabled{cursor:default}@media(max-width:639px){.ds-faq-trigger{gap:var(--space-2);padding:var(--space-2);min-height:calc(var(--control-height-large) + var(--space-2))}}@media(prefers-reduced-motion:reduce){.ds-faq-trigger{transition:none}}"
+    }
+  ],
+  "narrative": {
+    "northStar": "Tech Premium, intensidade discreta",
+    "overview": "A identidade fornecida pelo usuário em `design/design_system_ativos/base.md` (v0.5, 16/11/2026) orienta a interface: precisão geométrica, confiança corporativa e espaço negativo generoso. Esta captura descreve a adaptação implementada; os tokens acima são normativos e correspondem a `app/static/css/tokens.css`.\n\nPreservar a composição, os textos aprovados, os contatos e as interações existentes. A documentação detalhada permanece em `docs/brand/design-system.md`.",
+    "keyCharacteristics": [
+      "Fundo grafite com superfícies discretas e contornos finos.",
+      "Inter com títulos densos e texto de leitura confortável.",
+      "Destaques textuais e números dos cards das seções 04 e 06 em Acid Lime; títulos da seção 03 brancos.",
+      "Imagens, vídeos e marcas oficiais com suas cores originais, conforme solicitação do usuário."
+    ],
+    "rules": [
+      {
+        "name": "The Acento Textual Rule",
+        "body": "Lima é reservado ao texto: destaques de títulos e números dos cards das seções 04 e 06. A seção 03 usa títulos e números brancos. Rótulos e links de leitura permanecem neutros; controles de ação usam os azuis aprovados pelo usuário. A seleção combina texto lima com fundo neutro.",
+        "section": "colors"
+      }
+    ],
+    "dos": [
+      "**Do** usar os tokens atuais e os aliases semânticos do CSS.",
+      "**Do** preservar os textos aprovados, a composição e as interações acessíveis existentes.",
+      "**Do** manter imagens, vídeos e logos com suas cores originais.",
+      "**Do** verificar leitura em 360px, reflow e texto ampliado."
+    ],
+    "donts": [
+      "**Don't** aplicar lima em fundos, bordas, halos, sombras, links ou rótulos.",
+      "**Don't** redesenhar o lettering ou recolorir arbitrariamente logos oficiais.",
+      "**Don't** usar imagens conceituais como prova de resultados comerciais.",
+      "**Don't** copiar tamanhos absolutos do canvas social para texto essencial da web."
+    ]
+  }
+}

@@ -26,26 +26,40 @@ try {
         mainHeadings: document.querySelectorAll('h1').length,
         brokenImages: [...document.images].filter(image => !image.complete || !image.naturalWidth).map(image => image.src),
         brokenAnchors: [...document.querySelectorAll('a[href^="#"]')].map(link => link.hash).filter(hash => !document.getElementById(hash.slice(1))),
-        fontLoaded: document.fonts.check('400 16px Inter') && document.fonts.check('600 32px "Space Grotesk"'),
+        fontLoaded: document.fonts.check('500 16px Inter') && document.fonts.check('900 40px Inter'),
         headingFont: getComputedStyle(document.querySelector('h1')).fontFamily,
         headingWeight: getComputedStyle(document.querySelector('h1')).fontWeight,
         background: getComputedStyle(document.body).backgroundColor,
-        primary: getComputedStyle(document.documentElement).getPropertyValue('--brand-primary').trim(),
-        accent: getComputedStyle(document.documentElement).getPropertyValue('--brand-accent').trim(),
+        primary: getComputedStyle(document.documentElement).getPropertyValue('--color-text-primary').trim(),
+        accent: getComputedStyle(document.documentElement).getPropertyValue('--color-accent').trim(),
         focus: getComputedStyle(document.documentElement).getPropertyValue('--web-focus').trim(),
         videoSource: document.querySelector('.hero-video').currentSrc,
+        heroBounds: document.querySelector('.hero').getBoundingClientRect().toJSON(),
+        heroMedia: [...document.querySelectorAll('.hero-video, .hero-poster, .hero-poster img')].map(media => ({
+          tag: media.tagName, bounds: media.getBoundingClientRect().toJSON(),
+          fit: getComputedStyle(media).objectFit, mask: getComputedStyle(media).maskImage,
+        })),
       }));
       assert.equal(metrics.overflow, 0, width + 'px horizontal overflow');
       assert.equal(metrics.mainHeadings, 1);
       assert.deepEqual(metrics.brokenImages, []);
       assert.deepEqual(metrics.brokenAnchors, []);
       assert.equal(metrics.fontLoaded, true);
-      assert.equal(metrics.background, 'rgb(16, 27, 51)');
-      assert.ok(metrics.headingFont.startsWith('"Space Grotesk"'));
-      assert.equal(metrics.headingWeight, '600');
-      assert.equal(metrics.primary, '#007fa8');
+      assert.equal(metrics.background, 'rgb(12, 14, 18)');
+      assert.ok(metrics.headingFont.startsWith('Inter'));
+      assert.equal(metrics.headingWeight, '900');
+      assert.equal(metrics.primary, '#ffffff');
       assert.equal(metrics.accent, '#c7ff3d');
       assert.ok(metrics.videoSource.includes(width <= 1020 ? '/mobile.mp4' : '/desktop.mp4'));
+      if (width > 1020) {
+        for (const media of metrics.heroMedia) {
+          for (const edge of ['left', 'right', 'top', 'bottom']) {
+            assert.ok(Math.abs(media.bounds[edge] - metrics.heroBounds[edge]) <= 1, `${media.tag}: desktop hero background must cover its ${edge} edge`);
+          }
+          assert.equal(media.mask, 'none', 'Desktop hero edges must remain covered');
+          if (media.tag !== 'PICTURE') assert.equal(media.fit, 'cover');
+        }
+      }
       await page.screenshot({ path: resolve(output, width + '-fold.jpg'), quality: 88 });
 
       if (width <= 1020) {

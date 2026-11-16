@@ -101,7 +101,12 @@ try {
     assert.equal(animated[0].duration, 220);
     assert.ok(animated[0].keyframes.every(frame => frame.transform === undefined), 'Only opacity should animate');
     await motion.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] });
-    await sleep(50);
+    // Media-query change events run after responsive components finish reflowing.
+    // Wait for the observable state instead of assuming a 50ms scheduling window.
+    for (let attempt = 0; attempt < 100; attempt++) {
+      if (await motion.eval(() => document.querySelectorAll('[data-transition-pending]').length === 0)) break;
+      await sleep(50);
+    }
     assert.equal(await motion.eval(() => document.querySelectorAll('[data-transition-pending]').length), 0);
     assert.equal(await motion.eval(() => document.querySelector('#platform [data-section-transition]').getAnimations().length), 0);
     await motion.send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'no-preference' }] });

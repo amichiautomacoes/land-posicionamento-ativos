@@ -43,7 +43,7 @@ const capture = async (page, name) => {
   writeFileSync(resolve(output, name), Buffer.from(data, 'base64'));
 };
 try {
-  for (const [width, height] of [[1440, 1000], [1100, 1000], [1021, 1000], [768, 1024], [390, 844], [320, 740]]) {
+  for (const [width, height] of [[1440, 1000], [1200, 1000], [1199, 1000], [1100, 1000], [1021, 1000], [768, 1024], [390, 844], [320, 740]]) {
     const page = await browser.newPage({ width, height, mobile: width < 600 });
     try {
       await ready(page);
@@ -62,7 +62,7 @@ try {
           fills: getComputedStyle(art).objectFit === 'cover' && Math.abs(frame.width - image.width) < 1 && Math.abs(frame.height - image.height) < 1,
         };
       }));
-      const device = width > 1020 ? 'desktop' : width >= 640 ? 'tablet' : 'mobile';
+      const device = width >= 1200 ? 'desktop' : width >= 640 ? 'tablet' : 'mobile';
       const aspect = device === 'desktop' ? 3 / 7 : device === 'tablet' ? 1 : 3 / 2;
       artwork.forEach(image => {
         assert.ok(image.loaded, 'Both closed and opened artwork must load');
@@ -80,7 +80,7 @@ try {
         assert.ok(card.text.bottom <= card.box.bottom + 1);
       });
       await capture(page, `${width}-initial.jpg`);
-      if (width > 1020) {
+      if (width >= 1200) {
         for (const index of [1, 2, 3, 0]) {
           const point = await page.eval(index => {
             const box = document.querySelectorAll('#capabilities-copy [data-flow-step]')[index].getBoundingClientRect();

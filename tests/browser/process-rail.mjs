@@ -56,7 +56,7 @@ const sheet = async (frames, filename) => {
   const helper = await browser.newPage({ width: 1200, height: Math.ceil(frames.length / 4) * 450 });
   try {
     await helper.eval(frames => {
-      document.body.style.cssText = 'margin:0;display:grid;grid-template-columns:repeat(4,300px);background:#101b33';
+      document.body.style.cssText = 'margin:0;display:grid;grid-template-columns:repeat(4,300px);background:#0c0e12';
       document.body.innerHTML = frames.map(frame => `<img alt="" src="data:image/jpeg;base64,${frame}" style="display:block;width:300px;height:450px;object-fit:contain">`).join('');
       return Promise.all([...document.images].map(image => image.decode()));
     }, frames);

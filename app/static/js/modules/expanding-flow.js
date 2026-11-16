@@ -4,7 +4,7 @@ export function initExpandingFlow() {
     const cards = [...row.querySelectorAll('[data-flow-step]')];
     const controls = cards.map((card) => card.querySelector('[data-flow-control]'));
     const surfaces = cards.map((card) => card.querySelector('.flow-step-surface'));
-    const desktop = window.matchMedia('(min-width: 1021px)');
+    const desktop = window.matchMedia('(min-width: 1200px)');
     const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)');
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
     const running = new Set();
@@ -97,7 +97,7 @@ export function initExpandingFlow() {
       // retain the square/wide artwork, including without JavaScript.
       cards.forEach(card => {
         const source = card.querySelector('[data-flow-desktop-source]');
-        const media = enhanced ? '(min-width: 1021px)' : 'not all';
+        const media = enhanced ? '(min-width: 1200px)' : 'not all';
         if (source && source.media !== media) source.media = media;
       });
       sync();

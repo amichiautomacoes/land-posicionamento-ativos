@@ -30,16 +30,16 @@ const measure = () => ({
   })),
 });
 try {
-  for (const width of [1440, 1021, 768, 390, 320]) {
+  for (const width of [1440, 1200, 1199, 1021, 768, 390, 320]) {
     const page = await browser.newPage({width,height:900,mobile:width<600});
     try {
       await page.goto(url, {settleMs:300});
       await page.eval(async()=>{await document.fonts.ready;document.querySelector('video').pause();});
       const initial=await page.eval(measure);
       assert.equal(initial.overflow,0);
-      assert.equal(initial.interactiveFlow,width>1020);
+      assert.equal(initial.interactiveFlow,width>=1200);
       assert.equal(initial.interactiveStack,true);
-      await page.eval(desktop=>document.querySelector(desktop?'[data-flow-control]':'.solution-card').focus({preventScroll:true}),width>1020);
+      await page.eval(desktop=>document.querySelector(desktop?'[data-flow-control]':'.solution-card').focus({preventScroll:true}),width>=1200);
       await page.eval(()=>{document.documentElement.style.fontSize='200%';});
       await sleep(400);
       const enlarged=await page.eval(measure);

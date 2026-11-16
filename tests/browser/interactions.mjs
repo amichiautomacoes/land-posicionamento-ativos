@@ -65,11 +65,26 @@ try {
     await keyboard.send('Accessibility.enable');
     const tree = (await keyboard.send('Accessibility.getFullAXTree')).nodes;
     const contactLabels = ['Quero atrair mais clientes', 'Tirar minhas dúvidas no WhatsApp', 'Quero fazer meu negócio crescer'];
-    const contacts = tree.filter(node => !node.ignored && node.role?.value === 'button' && contactLabels.includes(node.name?.value));
+    const contacts = tree.filter(node => !node.ignored && ['button', 'link'].includes(node.role?.value) && contactLabels.some(label => node.name?.value.startsWith(label)));
     assert.equal(contacts.length, 3);
-    assert.ok(contacts.every(node => node.properties.some(property => property.name === 'disabled' && property.value.value === true)));
+    for (const contact of contacts) {
+      if (contact.role.value === 'button') assert.ok(contact.properties.some(property => property.name === 'disabled' && property.value.value === true));
+    }
+    const contactControls = await keyboard.eval(() => [...document.querySelectorAll('.hero-whatsapp, .faq-support, .button-whatsapp')].map(control => ({
+      tag: control.tagName, disabled: control.disabled, href: control.getAttribute('href'), target: control.getAttribute('target'),
+    })));
+    assert.equal(contactControls.length, 3);
+    for (const control of contactControls) {
+      if (control.tag === 'A') {
+        assert.ok(control.href.startsWith('https://wa.me/'));
+        assert.equal(control.target, '_blank');
+      } else {
+        assert.equal(control.tag, 'BUTTON');
+        assert.equal(control.disabled, true);
+      }
+    }
     assert.equal(tree.some(node => !node.ignored && node.role?.value === 'link' && node.name?.value === 'Soluções'), false);
-    // Exercise the enabled contact's CSS in isolation; keep application configuration untouched.
+    // Exercise contact focus without following an external link or changing configuration.
     await keyboard.eval(() => {
       const disabled = document.querySelector('.cta .button');
       const link = document.createElement('a');
@@ -81,8 +96,8 @@ try {
       link.scrollIntoView({ behavior: 'instant', block: 'center' });
     });
     assert.equal(await keyboard.eval(() => document.activeElement.matches('.cta .button:focus-visible')), true);
-    assert.equal(await keyboard.eval(() => getComputedStyle(document.activeElement).outlineColor), 'rgb(16, 27, 51)');
-    await keyboard.screenshot({ path: resolve(output, 'light-surface-focus.jpg'), quality: 90 });
+    assert.equal(await keyboard.eval(() => getComputedStyle(document.activeElement).outlineColor), 'rgb(255, 255, 255)');
+    await keyboard.screenshot({ path: resolve(output, 'contact-surface-focus.jpg'), quality: 90 });
     assert.deepEqual(keyboard.consoleErrors, []);
     results.keyboard = 'Skip link, native Tab/Enter/Escape, target focus, no keyboard motion, responsive focus recovery and accessibility tree passed';
   } finally { await keyboard.close(); }

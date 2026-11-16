@@ -1,4 +1,4 @@
-.faq-layout { display: grid; gap: var(--space-10); }
+.faq-layout { display: grid; gap: var(--section-content-gap); }
 
 .before-start-intro { min-width: 0; text-align: center; }
 
@@ -6,9 +6,9 @@
 
 .faq-description { max-width: 65ch; margin: var(--heading-copy-gap) auto 0; color: var(--web-text-muted); font-size: var(--text-lead); }
 
-.faq-support { margin-top: var(--space-8); }
+.faq-support { margin-top: var(--space-4); }
 
-.faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-6); min-width: 0; }
+.faq-list { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); align-items: start; gap: var(--space-3); min-width: 0; }
 
 .faq-column { display: grid; gap: var(--space-3); min-width: 0; }
 
@@ -17,10 +17,10 @@
 .faq-question { font-size: var(--text-body); }
 
 .faq-trigger {
-  position: relative; isolation: isolate; display: flex; align-items: center; justify-content: space-between; gap: var(--space-6);
-  width: 100%; min-height: calc(var(--control-height-large) + var(--space-6)); padding: var(--space-6);
+  position: relative; isolation: isolate; display: flex; align-items: center; justify-content: space-between; gap: var(--space-3);
+  width: 100%; min-height: calc(var(--control-height-large) + var(--space-3)); padding: var(--space-3);
   border-radius: var(--radius-card); background: transparent; color: var(--web-text);
-  font: 600 var(--text-body)/var(--leading-caption) var(--font-body); text-align: left;
+  font: var(--weight-name) var(--text-body)/var(--leading-caption) var(--font-body); text-align: left;
 }
 
 .faq-trigger > span { min-width: 0; overflow-wrap: anywhere; }
@@ -34,7 +34,7 @@
 
 .faq-trigger:not(:disabled):active::before { opacity: 1; }
 
-.faq-icon { display: none; flex: 0 0 var(--space-6); color: var(--brand-secondary); }
+.faq-icon { display: none; flex: 0 0 var(--space-3); color: var(--brand-secondary); }
 
 [data-faq-ready] .faq-icon { display: block; }
 
@@ -46,9 +46,9 @@
 
 .faq-answer-clip { min-height: 0; overflow: hidden; }
 
-.faq-answer-content { padding: 0 var(--space-6) var(--space-6); color: var(--web-text-muted); overflow-wrap: anywhere; }
+.faq-answer-content { padding: 0 var(--space-3) var(--space-3); color: var(--web-text-muted); overflow-wrap: anywhere; }
 
-.faq-answer-content > * + * { margin-top: var(--space-4); }
+.faq-answer-content > * + * { margin-top: var(--space-2); }
 
 /* The disclosure alone interpolates its intrinsic height; the rest of the page stays still. */
 [data-faq-ready] .faq-answer { grid-template-rows: 0fr; opacity: 0; transition: grid-template-rows var(--motion-enter) var(--ease-out), opacity var(--motion-fast) var(--ease-out); }
@@ -63,13 +63,13 @@ html[data-input="keyboard"] .faq-trigger::before { transition: none; }
 }
 
 @media (max-width: 1020px) {
-  .faq-layout { gap: var(--space-8); }
+  .faq-layout { gap: var(--space-4); }
   .faq-list { grid-template-columns: minmax(0, 1fr); gap: var(--space-3); }
 }
 
 @media (max-width: 639px) {
   .faq-layout { gap: var(--section-content-gap); }
-  .faq-support { margin-top: var(--space-6); }
-  .faq-trigger { gap: var(--space-4); padding: var(--space-4); min-height: calc(var(--control-height-large) + var(--space-4)); }
-  .faq-answer-content { padding: 0 var(--space-4) var(--space-4); }
+  .faq-support { margin-top: var(--space-3); }
+  .faq-trigger { gap: var(--space-2); padding: var(--space-2); min-height: calc(var(--control-height-large) + var(--space-2)); }
+  .faq-answer-content { padding: 0 var(--space-2) var(--space-2); }
 }
